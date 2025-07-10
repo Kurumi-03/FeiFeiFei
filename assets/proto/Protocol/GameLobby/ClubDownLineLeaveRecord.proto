@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 下線退出俱樂部紀錄
+message ClubDownLineLeaveRecordRequest {
+  string ClubId = 1;   // 俱樂部ID
+}
+
+message ClubDownLineLeaveRecordResponse {
+  /*
+    [ErrorCode]
+    -1: 傳入資料有誤
+    -2: 查無資料
+    -3: API 查無資料
+    -4: 未加入俱樂部
+    其他錯誤
+  */
+}
+
+message ClubDownLineLeaveRecordReceipt {
+  message ClubDownLineLeaveRecord {
+    int32 MemberId = 1;       // 退出的會員ID
+    string MemberNick = 2;    // 退出的會員暱稱
+    string MemberHead = 3;    // 退出的會員頭像
+    int32 Type = 4;           // 退出方式 0:系統剔除 1:上級剔除 2:會員退出
+    int32 UpperId = 5;        // 代理ID, 預設為 0,當 type = 1 才會有值
+    string CreateTime = 6;    // 退出時間
+  }
+  repeated ClubDownLineLeaveRecord ClubDownLineLeaveRecords = 1;   // 退出俱樂部紀錄
+  int32 TotCount = 2; // 總筆數
+}
+

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PK10;
+
+message TableInfo {
+  message OddList{
+    repeated double Odds = 1;     //各種玩法內不同押注方式的賠率
+  }
+  string Id = 1;                    // 遊戲桌ID(同等於 TableToken)
+  string LastSno = 2;               // 遊戲桌上期期號(若是沒有則為0)
+  string Sno = 3;                   // 遊戲桌當期期號
+  int32 MaxBet = 4;                 // 最大下注
+  int32 MinBet = 5;                 // 最小下注
+  int32 BetTime = 6;                // 下注時間
+  repeated int32 LastFinalCars = 7; // 上期比賽結果. [0]: 第一名的車號, [1]: 第二名的車號, ... 以此類推
+  map<int32,OddList> OddsTable = 8; // 賠率表(// 1. 1~10名猜車號
+                                            // 2. 1~10名猜大小單雙
+                                            // 3. 1~10名猜組合([大單大雙][小單小雙])
+                                            // 4. 名次組合猜龍虎
+                                            // 5. 猜冠亞號碼
+                                            // 6. 冠亞軍猜莊閒
+                                            // 7. 冠亞和值猜數字([3]~[19]號)
+                                            // 8. 冠亞和值猜大小單雙([大或雙][小或單])
+                                            // 9. 冠亞和值猜區段[A區][B區][C區])
+}

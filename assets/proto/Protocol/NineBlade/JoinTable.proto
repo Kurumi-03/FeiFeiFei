@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 加入桌
+message JoinTableRequest {
+  string TableToken = 1;
+  int32 SeatId = 2;  // 1 ~ MaxSeats
+}
+
+message JoinTableResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+    -4: 玩家不在此遊戲
+    -5: 此座位已有人
+    -6: 玩家點數不足
+  */
+}
+
+message JoinTableReceipt {
+  int32 PlayerId = 1;
+  int32 SeatId = 2;
+}

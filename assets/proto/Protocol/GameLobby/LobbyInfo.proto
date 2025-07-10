@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message LobbyInfoRequest {
+  // 取玩家資料
+  string PlayerToken = 1; // 玩家令牌
+}
+
+message LobbyInfoResponse {
+  int32 PlayerId = 1;    // 流水號
+  int32 MemberId = 2;    // ID
+  string NickName = 3;    // 暱稱
+  string Head = 4;    // 頭像
+  double GamePoint = 5;    // 遊戲點數
+  double RoomCard = 6;    // 房卡
+  int32 Sex = 7;    // 性別
+  int32 DebugLevel = 8;    // 控制前端寫log的層級(預設0，都寫)
+  string Note = 9;    // 備註
+  string ClubId = 10;    // 俱樂部ID,沒有則為空
+  string ClubName = 11;    // 俱樂部名稱,沒有則為空
+  repeated LobbyInfoGame Games = 12;   // key: GameId, value: LobbyInfoGame
+}
+
+message LobbyInfoGame {
+  string GameId = 1; // 遊戲ID
+  string GameName = 2; // 遊戲名稱
+  int32 State = 3; // 遊戲狀態 1:測試中 2:維護中 3:進行中 4:已關閉
+}

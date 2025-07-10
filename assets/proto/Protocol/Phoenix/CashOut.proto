@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+import "RichServer.Phoenix/Protocol/Public/BetResult.proto";
+
+// 取回
+message CashOutRequest {
+  string TableToken = 1;  // 遊戲桌token
+  string BetId = 2;       // 注單id
+}
+
+message CashOutResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 注單不存在
+    -6: 注單不能重複CashOut
+  */
+  BetResult BetResult = 1;  // 注單結果
+}
+
+// 通知誰取回
+message CashOutReceipt {
+  int32 PlayerId = 1;       // 玩家ID
+  BetResult BetResult = 2;  // 注單結果
+}

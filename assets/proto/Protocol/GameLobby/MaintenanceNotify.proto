@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+
+message MaintenanceNotifyReceipt {
+  string Info = 1;         // ex: 12:00 ~ 14:00(只有在系統維護時會送)
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine2;
+
+message TableInfo {
+  string Id = 1;        // 遊戲桌ID(同等於 TableToken)
+  string Sno = 2;       // 遊戲桌序號(可作為查詢LOG用)
+  int32 RoundId = 3;    // 第幾局
+  int32 MaxBet = 4;     // 最大下注
+  int32 MinBet = 5;     // 最小下注
+  int32 BetTime = 6;    // 下注時間
+}

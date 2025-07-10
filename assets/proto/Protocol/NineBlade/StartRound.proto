@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 局開始
+message StartRoundState {
+  int32 TimeLeft = 1; // 局開始的倒數時間
+}
+
+// 局同步
+message StartRoundSyncPoint {
+  int32 TimeLeft = 1; // 局開始的倒數時間
+  int32 SeatId = 2;   // 自己的座位 -1 表示沒坐下
+  int32 MinBet = 3;   // 最小押注
+}

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message PurchaseRequest {
+  int32 Platform = 1;       // 購買平台 1:IOS 2:GooglePlay	
+  string ProductId = 2;     // 產品ID
+  string Certificate = 3;   // 交易憑證
+  double Value = 4;         // 購買點數
+  int32 Status = 5;         // 交易狀態 0:失敗 1:成功
+}
+
+message PurchaseResponse {
+  /*
+    [ErrorCode]
+    -1: 查無玩家
+    -2: 其他參數錯誤
+    -3: 玩家狀態錯誤(遊戲中無法交易)
+  */
+}
+
+message PurchaseReceipt {
+  double GamePoint = 1;         // 玩家交易後的點數
+}

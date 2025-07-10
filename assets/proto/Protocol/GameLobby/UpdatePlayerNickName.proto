@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message UpdatePlayerNickNameRequest {
+  // 更新暱稱
+  string PlayerToken = 1; // 玩家令牌
+  string NewNickName = 2; // 新暱稱
+}
+
+message UpdatePlayerNickNameResponse {
+  /*
+    [ErrorCode]
+    -1: 傳入參數錯誤
+    -2: 資料異常
+  */
+  int32 State = 1; // 1:更新成功 其他:更新失敗
+}

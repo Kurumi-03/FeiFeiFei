@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 比牌結束畫面的同步點
+message CompareResult {
+  message Seat {
+    int32 SeatId = 1;               // 玩家座位 1 ~ MaxSeats
+    string Nickname = 2;            // 每個座位的暱稱，空坐位為空字串
+    double GPoint = 3;               // 每個座位的遊戲點數，空坐位為0
+    int32 HandType = 4;             // 前墩
+    int32 HandSubType = 5;          // 後墩
+    double BetPt = 6;               // 押注點數
+    double WinPt = 7;               // 贏點
+    repeated int32 CardsList = 8;   // 所有的手牌
+  }
+
+  int32 LastWiner = 1;                   // 贏家
+  repeated Seat SeatsData = 2;           // 每個座位的資料
+}
+
+message CompareResultSyncPoint {
+  
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 離開俱樂部大廳
+message LeaverClubLobbyRequest {
+}
+
+message LeaverClubLobbyResponse {
+  /*
+    [ErrorCode]
+    -1: 不在俱樂部內
+    -2: 其他參數錯誤
+  */
+}
+
+message LeaverClubLobbyReceipt {
+  double GamePoint = 1;     //遊戲點數(詢問的玩家個人)
+}

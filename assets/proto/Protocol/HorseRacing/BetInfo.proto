@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package RichServer.Protocol.HorseRacing;
+
+import "RichServer.HorseRacing/Protocol/Public/BetType.proto";
+
+message BetInfo {
+  BetType BetType = 1;  // 下注類型
+  double Amount = 2;    // 下注籌碼
+}

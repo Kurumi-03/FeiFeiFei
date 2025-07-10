@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 審核列表
+message ClubAgentReviewListRequest {
+  string ClubId = 1;     // 俱樂部ID
+}
+
+message ClubAgentReviewListResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限
+    其他錯誤
+  */
+}
+
+message ClubAgentReviewListReceipt {
+  int32 TotCount = 1;          // 總筆數
+  repeated ReviewData ReviewList = 2; // 審核列表
+
+  message ReviewData {
+    int32 ReviewId = 1;       //審核ID
+    int32 PlayerId = 2;       //申請人ID
+    string PlayerNickName = 3;//申請人暱稱
+    string PlayerHead = 4;    //申請人頭像
+    int32 AgentId = 5;        //邀請人ID
+    string AgentNickName = 6; //邀請人暱稱
+    string ReviewInfo = 7;    //報名訊息
+  }
+}

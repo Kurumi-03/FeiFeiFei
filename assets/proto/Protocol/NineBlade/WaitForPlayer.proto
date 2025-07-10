@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 等候玩家入局
+message WaitForPlayerState {
+}
+
+// 等候玩家入局的同步點
+message IdleSyncPoint {
+    int32 WaitTime = 1;
+}
+
+message WaitForPlayerReceipt{
+    message Seat {
+        string Nickname = 1;            // 每個座位的暱稱，空坐位為空字串
+        double GPoint = 2;               // 每個座位的遊戲點數，空坐位為0
+    }
+
+    map<int32, Seat> Seats = 1;      // key: SeatId (1 ~ MaxSeats), value: Seat
+}

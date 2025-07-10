@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message UpdatePlayerHeadRequest {
+  // 更新頭像
+  string PlayerToken = 1; // 玩家令牌
+  string NewHead = 2; // 新頭像
+}
+
+message UpdatePlayerHeadResponse {
+  /*
+    [ErrorCode]
+    -1: 傳入參數錯誤
+    -2: 資料異常
+  */
+  int32 State = 1; // 1:更新成功 其他:更新失敗
+}

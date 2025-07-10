@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 代理取錢
+message ClubAgentTakeMoneyRequest {
+  int32 TakenAwayId = 1; // 被取錢的ID
+  int32 TakeType = 3;    // 取錢類型 0:指定金額 1:回收積分
+  string ClubId = 2;     // 俱樂部ID
+  double Money = 4;      // 金額
+}
+
+message ClubAgentTakeMoneyResponse {
+  int32 State = 1;          // 1:成功 2:非下線 3:金額不足 4:查無資料 5:對方遊戲中無法取點 6:超出封頂限額 7:對方代理在遊戲中無法取點
+}
+
+message ClubNewPointReceipt {
+  message ClubPlayerChangePoint {
+    int32 PlayerId = 1;      //玩家ID
+    double GamePoint = 2;     //新的玩家點數
+  }
+
+  string ClubId = 1;      //俱樂部ID
+  repeated ClubPlayerChangePoint ClubPlayerChangePointList = 2;   // 異動點數的玩家資料
+}

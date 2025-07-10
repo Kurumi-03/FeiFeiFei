@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.HorseRacing;
+
+// 走勢圖
+message GetTrendChartRequest {
+  string TableToken = 1;
+}
+
+message GetTrendChartResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+  message Recode{
+    string ResultDate  = 1;       //產生結果的時間(MM/DD)
+    string ResultTime  = 2;       //產生結果的時間(hh:mm:ss)
+    repeated int32 Ranks  = 3;    //該期結果(1-2名)
+  }
+  repeated Recode Records = 1;    //歷史紀錄(存3天)
+}

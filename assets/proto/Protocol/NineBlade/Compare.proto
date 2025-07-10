@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 所有人比牌
+message CompareRequest {
+  string TableToken = 1;
+}
+
+message CompareResponse {
+}
+
+message Winner{
+  int32 frontWinSeatId = 1;
+  int32 backWinSeatId = 2;
+  int32 LastWinSeatId = 3;
+}
+
+message CompareState {
+  int32 SeatId = 1;         // 目前詢問的玩家座位 1 ~ MaxSeats
+  Winner Winner = 2;
+  map<int32, Seat> Seats = 3;  // key: SeatId (1 ~ MaxSeats), value: Seat
+
+  message Seat {
+    int32 Id = 1;             // 1 ~ MaxSeats
+    double TotalBet = 2;       // 總賭金
+    int32 IsTie = 3;
+    repeated Hand Hands = 4;  // 牌相關
+  }
+
+  message Hand {
+    int32 HandType = 1;         // 前墩
+    int32 HandSubType = 2;      // 後墩
+    repeated int32 Cards = 3;   //1-5妞妞 6.7前墩 8.9後墩
+  }
+}
+
+message CompareSyncPoint{
+  int32 SeatId = 1;       // 自己的座位 -1 表示沒坐下
+  double MinBet = 2;       // 最小押注
+  double TotBet = 3;       // 目前總注
+  int32 WatchOn = 4;      // 0:正常 1:觀戰
+  Winner Winner = 5;
+  map<int32, Seat> Seats = 6;  // key: SeatId (1 ~ MaxSeats), value: Seat
+
+  message Seat {
+    int32 Id = 1;             // 1 ~ MaxSeats
+    double TotalBet = 2;       // 總賭金
+     int32 IsTie = 3;
+    repeated Hand Hands = 4;  // 牌相關
+  }
+
+  message Hand {
+    int32 HandType = 1;         // 前墩
+    int32 HandSubType = 2;      // 後墩
+    repeated int32 Cards = 3;   //1-5妞妞 6.7前墩 8.9後墩
+  }
+}

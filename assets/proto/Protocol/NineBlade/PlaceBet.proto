@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 下注
+message PlaceBetRequest {
+  string TableToken = 1;
+  int32 SeatId = 2;     // 1 ~ MaxSeats
+  double BetAmount = 3;  // 下注金額
+}
+
+message PlaceBetResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+    -4: 此座位沒人/不是該玩家
+    -5: 玩家點數不足
+    -6: 小於最低押注
+    -7: 大於最高押注
+  */
+}
+
+message PlaceBetReceipt {
+  int32 SeatId = 1;     // 1 ~ MaxSeats
+  double BetAmount = 2;  // 下注金額
+  double GamePoint = 3;  // 下注完餘額
+  double allBet = 4; //目前總注
+}

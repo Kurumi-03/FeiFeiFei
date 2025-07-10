@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 修改佔成、返水
+message SetClubAgentPerFsRequest {
+  int32 ToId = 1;               // 下線ID
+  string ClubId = 2;            // 俱樂部ID
+  map<string,double> Pr = 3;    // 佔成,交上線比例(key:game id, value:設定的數值)
+  map<string,double> Fs = 4;    // 返水,獎勵比例(key:game id, value:設定的數值)
+}
+
+message SetClubAgentPerFsResponse {
+  int32 State = 1; // 1: 修改成功(-1:設定值超過上線 2:非維護時間 99:參數錯誤 101:查無會員 102:查無俱樂部 103:會員未加入俱樂部 104:非代理身分 105:查無設定會員 )
+  int32 ToId = 2;  // 被修改的下線ID
+  map<string, double> Per = 3;        // 有超過佔成被調整後的設定值(遊戲ID,交上線比例)
+  map<string, double> Fs = 4;         // 有超過返水被調整後的設定值(遊戲ID,獎勵比例)
+  /*
+    [ErrorCode]
+    -1: 參數錯誤
+    -2: 查無資料
+    -3: 未加入俱樂部
+    -4: 無權限
+    -5: 不屬於此代理線
+    其他錯誤
+  */
+}

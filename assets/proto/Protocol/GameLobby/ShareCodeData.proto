@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message ShareCodeDataRequest {
+  int32 AgentId = 1; // 代理ID
+  string ShareCode = 2; // 推廣碼
+}
+
+message ShareCodeDataResponse {
+  /*
+    [ErrorCode]
+    -1: 傳入參數錯誤
+    -2: 查無資料
+    -3: 查無此推廣碼
+  */
+  int32 IsAdd = 1;    // 狀態 0:未加入 1:已加入
+  string ClubId = 2;    // 俱樂部ID,只有未加入才會有值
+  string ClubName = 3;    // 俱樂部名稱,只有未加入才會有值
+  string ClubNote = 4;    // 俱樂部簡介,只有未加入才會有值
+}

@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+message PlayersSortRequest{
+  string TableToken = 1;
+  int32 SeatId = 2;
+  int32 frontHandOne = 3;
+  int32 frontHandTwo = 4;
+  int32 backHandOne = 5;
+  int32 backHandTwo = 6;
+  repeated int32 Cards = 7;//1-5妞妞 6.7前墩 8.9後墩
+}
+
+message PlayersSortResponse{
+  repeated int32 Cards = 1;   //1-5妞妞 6.7前墩 8.9後墩
+}
+
+// 玩家刁牌狀態
+message PlayersSortState {
+
+  message AllNiuNiu {
+    repeated NiuNiu NiuNius = 1;
+    repeated OneBtnSort OneBtnSorts = 2;
+    bool haveNiu = 3;
+  }
+
+  message NiuNiu {
+    repeated int32 Cards = 1;
+  }
+
+  message OneBtnSort {
+    repeated int32 Cards = 1;   //1-5妞妞 6.7前墩 8.9後墩
+  }
+
+  map<int32, AllNiuNiu> Seats = 1;      // key: SeatId (1 ~ MaxSeats), value: AllNiuNiu
+}
+
+
+// 玩家刁牌的同步點
+message PlayersSortSyncPoint {
+  int32 TimeLeft = 1;     // 刁牌剩餘時間
+  int32 SeatId = 2;       // 自己的座位 -1 表示沒坐下
+  int32 MinBet = 3;       // 最小押注
+  int32 TotBet = 4;       // 目前總注
+  int32 WatchOn = 5;      // 0:正常 1:觀戰
+  bool IsFinishSort = 6;  // 是否已經刁過牌
+  map<int32, AllNiuNiu> Seats = 7;      // key: SeatId (1 ~ MaxSeats), value: AllNiuNiu
+
+  message AllNiuNiu {
+    repeated NiuNiu NiuNius = 1;
+    repeated OneBtnSort OneBtnSorts = 2;
+    bool haveNiu = 3;
+  }
+
+  message NiuNiu {
+    repeated int32 Cards = 1;
+  }
+
+  message OneBtnSort {
+    repeated int32 Cards = 1;   //1-5妞妞 6.7前墩 8.9後墩
+  }
+}

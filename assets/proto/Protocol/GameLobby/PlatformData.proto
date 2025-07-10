@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message PlatformDataRequest {
+  // 平台資料
+  string PlayerToken = 1; // 等待驗證令牌
+  string Account = 2; // 帳號，ID
+  string NickName = 3; // 暱稱
+  string Photo = 4; // 頭像
+}
+
+message PlatformDataResponse {
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PK10;
+
+import "RichServer.PK10/Protocol/Public/TableInfo.proto";
+import "RichServer.PK10/Protocol/Public/PlayerInfo.proto";
+import "RichServer.PK10/Protocol/Public/BetInfo.proto";
+import "RichServer.PK10/Protocol/Public/RoundOutcomeInfo.proto";
+
+// 開始比牌
+message ShowdownState {
+  repeated int32 FinalCars = 1;       // 比賽結果. [0]: 第一名的車號, [1]: 第二名的車號, ... 以此類推
+  RoundOutcomeInfo RoundOutcome = 2;  // 輸贏結果
+  string DataUrl = 3;
+  string DataKey = 4;
+  int32 Maintenance = 5;              // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}
+
+// 比牌階段的同步點
+message ShowdownSyncPoint {
+  message PlayerBetInfo {
+    int32 Id = 1;                  // 玩家ID
+    repeated BetInfo BetList = 2;  // 下注資訊列表
+  }
+
+  TableInfo Table = 1;                    // 遊戲桌資訊
+  repeated PlayerInfo Players = 2;        // 所有玩家資訊
+  repeated PlayerBetInfo PlayersBet = 3;  // 所有玩家下注資訊
+  repeated int32 FinalCars = 4;           // 比賽結果. [0]: 第一名的車號, [1]: 第二名的車號, ... 以此類推
+  RoundOutcomeInfo RoundOutcome = 5;      // 輸贏結果
+  string DataUrl = 6;
+  string DataKey = 7;
+  int32 Maintenance = 8;                  // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}

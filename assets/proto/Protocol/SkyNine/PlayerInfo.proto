@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine;
+
+message PlayerInfo {
+  int32 Id = 1;         // 玩家ID
+  int32 SeatId = 2;     // 座位ID. 1: 莊家(目前莊家固定為公司)
+  string NickName = 3;  // 玩家暱稱
+  string AvatarId = 4;  // 玩家大頭貼ID
+  double GPoints = 5;    // 玩家遊戲點數
+}

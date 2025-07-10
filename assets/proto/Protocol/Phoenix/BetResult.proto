@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+message BetResult {
+  string BetId = 1;       // 注單ID
+  double BetAmount = 2;   // 下注籌碼
+  double Multiplier = 3;  // 當前倍數
+  double WinAmount = 4;   // 贏得籌碼
+  double GPoints = 5;     // 玩家當前遊戲點數
+}

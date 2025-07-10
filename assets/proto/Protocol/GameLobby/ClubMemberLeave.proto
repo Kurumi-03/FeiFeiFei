@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 會員離開俱樂部
+message ClubMemberLeaveRequest {
+  string ClubId = 1;     // 俱樂部ID
+}
+
+message ClubMemberLeaveResponse {
+  int32 State = 1; // 1: 成功 2:已離開 3:尚有餘額 4:尚有下線 0:其他錯誤
+  /*
+    [ErrorCode]
+    -1: 參數錯誤
+    -2: 玩家當前不再此俱樂部
+  */
+}

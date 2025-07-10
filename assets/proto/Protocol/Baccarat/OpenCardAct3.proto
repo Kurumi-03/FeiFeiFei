@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+// 第三階段開牌(莊家補牌)
+message OpenCardAct3State {
+  int32 BankerHitCard = 1;            //莊家補的牌(不須補牌為0)
+  repeated int32 BankerCardList = 2;  //莊家手牌
+  int32 BankerCardPoint = 3;          //莊家牌點數
+}
+
+
+// 第三階段開牌(莊家補牌)的同步點
+message OpenCardAct3SyncPoint {
+   message AreaCredit {
+    int32 Id = 1;                    // (0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+    repeated double AllCredits = 2;  // 下注籌碼清單
+  }
+  message Seat {
+    int32 Id = 1;                             // 1 ~ MaxSeats
+    double TotalBet = 2;                      // 此位置的下注額
+    repeated AreaCredit AreaCredits = 3;      // 此位置各下注區的籌碼清單
+    bool IsAuto = 4;                         // 是否為自動下注
+  }
+  map<int32, Seat> Seats = 1;             // key: SeatId (1 ~ MaxSeats), value: Seat
+  repeated double EachAreaBet = 2;        // 每個區域的押注值(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+  repeated int32 PlayerCardList = 3;      // 閒家手牌
+  int32 PlayerCardPoint = 4;              // 閒家牌點數
+  repeated int32 BankerCardList = 5;      // 莊家手牌(有補牌為3張,沒補牌為2張)
+  int32 BankerCardPoint = 6;              // 莊家牌點數
+  repeated double EachAreaSelfBet = 7;    // 玩家自己在每個區域的押注值(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+}

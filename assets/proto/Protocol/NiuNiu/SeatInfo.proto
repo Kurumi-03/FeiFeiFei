@@ -1,0 +1,28 @@
+ syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+// 請求桌內座位資訊
+message SeatInfoRequest {
+  string TableToken = 1;
+}
+
+message SeatInfoResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+  */
+}
+
+message SeatInfoReceipt {
+  message SeatInfo {
+    string HeadId = 1;    // 每個座位的頭像id
+    string Nickname = 2;  // 每個座位的暱稱
+    double GamePoint=3;    // 每個位置擁有的遊戲點數值
+    double BetPoint=4;     // 每個位置下注值
+    int32 PlayerId=5;     // 坐在這個座位的player id
+  }
+  map<int32, SeatInfo> Seats = 1;  // key: SeatId (1 ~ MaxSeats), value: SeatInfo
+}

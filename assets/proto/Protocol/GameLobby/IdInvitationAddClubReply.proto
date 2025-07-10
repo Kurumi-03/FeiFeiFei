@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message IdInvitationAddClubReplyRequest {
+  // 被邀請人是否同意
+  int32 IsAgree = 1; // 1:同意 2:不同意
+  int32 InviteId = 2; //邀請審核列表ID
+  string ClubId = 3; // 俱樂部ID
+}
+
+message IdInvitationAddClubReplyResponse {
+  int32 State = 1; // 1:回覆成功 2:俱樂部人數已達上限 3:會員已加入此俱樂部 其他:回覆失敗
+}

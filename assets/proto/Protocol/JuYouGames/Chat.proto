@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message ChatRequest {
+  string TableToken = 1;
+  int32 SeatId = 2;       //發言者的 座位id
+  string Msg = 3;         //聊天的文字內容
+  int32 EmojiIdx = 4;     //聊天的 Emoji 索引
+}
+
+message ChatResponse {
+   /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲不存在
+    -3: 玩家不在此遊戲
+    -4: 未知的錯誤
+  */
+}
+
+message ChatReceipt {
+  string TableToken = 1;
+  int32 PlayerId = 2;     //發言者的 player id(如果被禁言，只會回給該玩家，此值為-1)
+  int32 SeatId = 3;       //發言者的 座位id
+  string Nickname = 4;    //發言者的暱稱
+  string Msg = 5;         //聊天的文字內容
+  int32 EmojiIdx = 6;     //聊天的 Emoji 索引
+}
+

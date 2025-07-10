@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 單房所有局戰績
+message ClubRoomIdGameRecordRequest {
+  string RoomId = 1;     // 房號
+  string ClubId = 2;     // 俱樂部ID
+}
+
+message ClubRoomIdGameRecordResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限
+    -3: 查無該房
+    -4: 其他參數錯誤
+  */
+}
+
+message ClubRoomIdGameRecordReceipt {
+  repeated ClubRoomIdGameRecord ClubRoomIdGameRecords = 1;   // 每局戰績
+}
+
+message ClubRoomIdGameRecord {
+  string RoomId = 1;          // 房號
+  int32 Round = 2;            // 局數
+  double Ante = 3;             // 底注
+  string ResultTime = 4;      // 結算時間
+  string GameName = 5;        // 遊戲名稱
+  string Detail = 6;              // 詳細資訊(牌型...等)
+  repeated ClubRoomIdGameRecordPlayer ClubRoomIdGameRecordPlayers = 7;   // 該局各玩家遊戲紀錄
+}
+
+message ClubRoomIdGameRecordPlayer {
+  int32 PlayerId = 1;             // 玩家ID
+  string NickName = 2;            // 玩家暱稱
+  double WinPt = 3;                // 輸贏
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine;
+
+import "RichServer.SkyNine/Protocol/Public/TableInfo.proto";
+import "RichServer.SkyNine/Protocol/Public/PlayerInfo.proto";
+
+// 開始下注
+message BetTimeState {
+}
+
+// 下注階段的同步點
+message BetTimeSyncPoint {
+  message TableExInfo {
+    int32 RemainingCardCount = 1;  // 桌面上剩餘的牌數量(已發完牌)
+    int32 Dice1 = 2;               // 第一顆骰子(1~6)
+    int32 Dice2 = 3;               // 第二顆骰子(1~6)
+    int32 Dice3 = 4;               // 第三顆骰子(1~6)
+    int32 FirstBase = 5;           // 從哪個位置開始發牌. 0: 莊家, 1: 初, 2: 川, 3: 尾
+  }
+
+  message TableBetInfo {
+    message Area {
+      int32 Id = 1;                // 1: 初, 2: 川, 3: 尾
+      repeated double AllBets = 2;  // 下注籌碼清單
+      double TotalBet = 3;          // 總下注籌碼
+    }
+
+    repeated Area Areas = 1;  // 初/川/尾各區下注資訊
+  }
+
+  message PlayerBetInfo {
+    message Area {
+      int32 Id = 1;        // 1: 初, 2: 川, 3: 尾
+      double TotalBet = 2;  // 該區總下注籌碼
+    }
+
+    int32 Id = 1;             // 玩家ID
+    repeated Area Areas = 2;  // 初/川/尾各區下注資訊
+    double TotalBet = 3;       // 總下注籌碼(初+川+尾)
+  }
+
+  TableInfo Table = 1;                    // 遊戲桌資訊
+  TableExInfo TableEx = 2;                // 遊戲桌額外資訊
+  TableBetInfo TableBet = 3;              // 遊戲桌下注資訊
+  repeated PlayerInfo Players = 4;        // 所有玩家資訊
+  repeated PlayerBetInfo PlayersBet = 5;  // 所有玩家下注資訊
+}

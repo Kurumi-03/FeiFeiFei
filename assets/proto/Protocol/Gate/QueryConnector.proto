@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Gate;
+
+//用於查詢連接器的名稱、主機和通訊埠。
+
+message QueryConnectorRequest {}
+
+message QueryConnectorResponse {
+  string Name = 1; //連接器的名稱
+  string Host = 2; //連接器的主機
+  int32 Port = 3;  //連接器的通訊埠
+}

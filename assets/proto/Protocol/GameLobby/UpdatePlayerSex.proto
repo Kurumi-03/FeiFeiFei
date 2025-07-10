@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message UpdatePlayerSexRequest {
+  // 更換性別
+  string PlayerToken = 1; // 玩家令牌
+  int32 NewSex = 2;    // 新性別
+}
+
+message UpdatePlayerSexResponse {
+  int32 State = 1; // 1:更換成功 其他:更換失敗
+}

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 進俱樂部
+message EnterClubLobbyRequest {
+  string ClubId = 1;     //俱樂部ID
+}
+
+message EnterClubLobbyResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限
+    -3: 其他參數錯誤
+  */
+}
+
+message EnterClubLobbyReceipt {
+  string ClubId = 1;      //俱樂部ID
+  string ClubName = 2;      //俱樂部名稱
+  string ClubPhoto = 3;     //俱樂部圖片(網址)
+  string ClubMarquee = 4;   //俱樂部跑馬燈文件
+  double GamePoint = 5;     //遊戲點數(詢問的玩家個人)
+  int32 CurMemberCnts = 6;  //俱樂部目前人數
+  int32 MemberCntsMax = 7;  //俱樂部最大人數
+  string Note = 8;          //俱樂部備註
+  int32 UserAgent = 9;     //俱樂部身分 0:會員 1:代理 2:總代
+  int32 ApiGameSt = 10;     //回傳1:玩家之前的外接館遊戲尚未結束(餘額取回失敗)
+}

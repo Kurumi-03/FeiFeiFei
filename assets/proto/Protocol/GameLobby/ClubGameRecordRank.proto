@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 戰績排行
+message ClubGameRecordRankRequest {
+  int64 StartTime = 1;     // 開始時間
+  int64 EndTime = 2;     // 結束時間
+  string ClubId = 3;       // 俱樂部ID
+  string GameId = 4;       // 遊戲ID 空值表示查全部遊戲
+}
+
+message ClubGameRecordRankResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+  */
+}
+
+message ClubGameRecordRankReceipt {
+  int32 TotCount = 1; // 總筆數
+  repeated ClubGameRecordRank ClubGameRecordRanks = 2;   // 俱樂部玩家各自的總戰績
+}
+
+message ClubGameRecordRank {
+  int32 MemberId = 1;         // 玩家ID
+  string NickName = 2;        // 玩家暱稱
+  int32 TotRound = 3;         // 總局數
+  double WinLose = 4;         // 總輸贏
+  double TotRoomCard = 5;     // 房卡消耗
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+// 設置自動取回. 若鳳凰已開始飛翔, 則設定值會在下一局生效
+message SetAutoCashOutRequest {
+  string TableToken = 1;  // 遊戲桌token
+  double Multiplier = 2;  // 期望自動取回的倍數
+}
+
+message SetAutoCashOutResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+  double Multiplier = 1;  // 期望自動取回的倍數(SERVER確認後)
+}

@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 請求桌資訊 有人加入或離開就傳給前端資訊
+message TableInfoRequest {
+  string TableToken = 1;
+}
+
+message TableInfoResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+  */
+}
+
+message TableInfoReceipt {
+  int32 TableLeader = 1;            // 桌長座位索引
+  int32 WatchOn = 2;                // 0:正常 1:觀戰
+  int32 GameEnterState = 3;
+  string GameSerNum = 4;            // 遊戲局的序號，前端顯示後作為查詢LOG用
+  int32 DicePointOne = 5;
+  int32 DicePointTwo = 6;
+  double TableNeedBetPoint = 7;
+  double TotBet = 8;                // 牌桌總下注
+  map<int32, Seat> Seats = 9;      // key: SeatId (1 ~ MaxSeats), value: Seat
+
+  message Seat {
+    string Nickname = 1;            // 每個座位的暱稱，空坐位為空字串
+    string Head = 2;                // 每個座位的頭像
+    int32 PlayerId = 3;             // 座位玩家ID
+    double GPoint = 4;               // 每個座位的遊戲點數，空坐位為0
+    double Record = 5;               // 
+    bool NotEnough = 6;             // false:正常 true:餘額不足
+    int32 WatchOn = 7;              // 0:正常 1:觀戰 
+  }
+}

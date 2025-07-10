@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+import "RichServer.Phoenix/Protocol/Public/BetInfo.proto";
+
+// 玩家下注
+message PlaceBetRequest {
+  string TableToken = 1;  // 遊戲桌token
+  double Amount = 2;      // 下注籌碼
+}
+
+message PlaceBetResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 玩家點數不足
+    -6: 已達最大下注筆數
+    -7: 玩家已達下注上限
+  */
+  string BetId = 1;    // 注單ID
+  double GPoints = 2;  // 玩家當前遊戲點數
+}
+
+// 通知誰下注
+message PlaceBetReceipt {
+  int32 PlayerId = 1;   // 玩家ID
+  BetInfo BetInfo = 2;  // 注單資訊
+}

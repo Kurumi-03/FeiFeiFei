@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message PlayerLoginRequest {
+  // 登入
+  int32 LoginType = 1;    // 0: 試玩 1:手機、密碼 2: Line
+  string Account = 2;     // loginType = 1 時填手機,其餘為空  logintType = 2 時傳入 mitkn
+  string Password = 3;    // loginType = 1 時填密碼,其餘為空
+  string PlayerToken = 4; // 原本紀錄的token
+  string Version = 5;     //版本號
+}
+
+message PlayerLoginResponse {
+  int32 State = 1;          // 1:成功, 2:驗證登入 3:版本不符 其他:失敗 5:目前是維護時間
+  string PlayerToken = 2;    // 登入驗證令牌，state = 1 登入成功令牌(可使用此令牌登入), state = 2 等待驗證令牌(需帶入平台登入連結,做為唯一值)
+}
+
+message PlayerLoginReceipt {
+  // 平台驗證登入成功回傳
+  int32 State = 1;          // 1:成功, 2:逾時
+  string PlayerToken = 2; // 登入驗證令牌，state = 1 登入成功令牌(可使用此令牌登入)
+}

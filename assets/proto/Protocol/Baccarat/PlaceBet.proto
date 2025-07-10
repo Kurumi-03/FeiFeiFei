@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+
+// 下注(若是有多個區同時下注時，每一區傳一次)
+message PlaceBetRequest {
+  message AreaCredits{
+    repeated double Credits0 = 1;// 下注籌碼清單(0:閒家)
+    repeated double Credits1 = 2;// 下注籌碼清單(1：莊家)
+    repeated double Credits2 = 3;// 下注籌碼清單(2：和)
+    repeated double Credits3 = 4;// 下注籌碼清單(3：閒對)
+    repeated double Credits4 = 5;// 下注籌碼清單(4：莊對)
+  }
+  string TableToken = 1;                  // 此局token
+  int32 SeatId = 2;                       // 1 ~ MaxSeats
+  repeated double BetAmounts = 3;         // 下注金額(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+  AreaCredits Credits = 4;                // 下注籌碼清單
+}
+
+message PlaceBetResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+    -4: 此座位沒人/不是該玩家
+    -5: 玩家點數不足
+    -6: 下注低於最小押注值
+    -7: 下注超過個人上限
+    -8: 參數錯誤
+  */
+  int32 ErrorCode = 1;            // 錯誤碼(0:正常 1:已超過該區個人限紅值 2:已超過區域限紅)
+}
+
+message PlaceBetReceipt {
+  message AreaCredits{
+    repeated double Credits = 1;
+  }
+  int32 SeatId = 1;                       // 1 ~ MaxSeats
+  repeated double BetAmounts = 2;         // 此次各區下注金額(0:閒家 1：莊家 2：和 3：閒對 4：莊對)(此數值若是-1，表示該下注區域已達到限紅值，下注失敗)
+  map<int32,AreaCredits> AllCredits = 3;  // 下注籌碼清單
+  double GamePoints = 4;                  // 剩餘的遊戲點數
+  double TotalBet = 5;                    // 目前的總下注額
+  int32 FailReason = 6;                   // 只要有一區 BetAmounts 為-1時，這邊會回傳原因(0:正常 1:已超過該區個人限紅值 2:已超過區域限紅 3:餘額不足)
+  bool IsAuto = 7;                        // 是否為自動下注
+  repeated double EachAreaBet = 8;        // 每個區域的累積押注值(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+  repeated double BetLimit = 9;           // 每個區域的限紅值(0:閒家 1：莊家)莊閒限紅會隨著押注值變動
+}

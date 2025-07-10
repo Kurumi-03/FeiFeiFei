@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+import "RichServer.NiuNiu/Protocol/Public/TableInfo.proto";
+import "RichServer.NiuNiu/Protocol/Public/PlayerInfo.proto";
+
+// 開始發牌
+message DealingState {
+}
+
+// 發牌階段的同步點
+message DealingSyncPoint {
+  TableInfo Table = 1;              // 遊戲桌資訊
+  repeated PlayerInfo Players = 2;  // 所有玩家資訊
+}

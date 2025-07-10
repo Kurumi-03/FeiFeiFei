@@ -1,0 +1,34 @@
+ syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+import "RichServer.Baccarat/Protocol/Public/RoadMapList.proto";
+
+// 自動下注模式3(倍投)
+message AutoBetMode3Request {
+  string TableToken = 1;                      //遊戲局 token
+  int32 Start = 2;                            //0:Stop 1:Start(只有1才會參考後面數值)
+  int32 Profit = 3;                           //停利點
+  int32 Loss = 4;                             //停損點
+  int32 MaxRouns = 5;                         //停止關數(下完關數回到第一關)
+  int32 Mutiple = 6;                          //倍投方式(2:2倍投 3:3倍投 ....自定義時,Mutiple代表投注額)
+  bool IsContinueTie = 7;                     //開和是否續追
+  bool IsContinueLimit = 8;                   //當桌 單邊達限紅 下一關是否續追
+  repeated int32 BetTargets = 9;              //每關下注目標 0:閒 1:莊
+  repeated int32 BetAmounts = 10;             //每關下注金額
+  map<int32, RoadMapList> MatchRoad = 11;     //當符合設定的路時，會啟動倍投模式(可設定多張不同的路)
+}
+
+message AutoBetMode3Response {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+  */
+}
+
+message AutoBetMode3Receipt {
+  int32 State = 1;            // 0:停止 1:啟動
+  int32 StopReason = 2;       // 停止時會送出停止的原因(1.到達停止關數 2:達到停利 3:達到停損 4:開和不續追 5:單邊達限紅不續追 6:額度不足 7:牌組已換靴，自動下注停止 8:停損停利皆設為0，只會進行1局投注)
+}

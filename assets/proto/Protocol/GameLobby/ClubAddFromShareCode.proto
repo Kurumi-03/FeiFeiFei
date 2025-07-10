@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 使用推廣碼加入俱樂部
+message ClubAddFromShareCodeRequest {
+  string ShareCode = 1;     // 推廣碼
+}
+
+message ClubAddFromShareCodeResponse {
+  int32 State = 1; // 1:成功 2:已加入俱樂部 3:俱樂部已滿員 4:審核中 5:加入異常 0:其他錯誤
+  /*
+    [ErrorCode]
+    -1: 傳入資料為空
+    -2: 查無資料
+  */
+}

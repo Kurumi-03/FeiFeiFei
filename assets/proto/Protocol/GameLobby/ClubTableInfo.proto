@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 俱樂部桌資訊(玩家進入俱樂部時會主動送,其餘依照前端需求自行Request)
+message ClubTableInfoRequest {
+  string ClubId = 1;     // 俱樂部ID
+}
+
+message ClubTableInfoResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限
+    -3: 其他參數錯誤
+  */
+}
+
+message ClubTableInfoReceipt {
+  message PlayerInfo{
+    int32 PlayerId = 1;   //玩家id
+    string Nickname = 2;  //玩家暱稱
+    string Head = 3;      //玩家頭像
+  }
+  
+  message GameTableData{
+    int32 GameId = 1;               //遊戲局所屬的遊戲ID (200001:九支刀, 200002:百家樂, 200003:推筒子, 200004:妞妞, 200005:黑粒仔, 200006:彈珠擂台, 200007:推筒子百人版, 200008:妞妞百人版, 200009:黑粒仔百人版)
+    string Srvname=2;               //遊戲局所在的 gameserver名稱(送封包用)
+    string TableId = 3;             //table id
+    string TableToken = 4;          //遊戲局的token,加入指定局時使用
+    int32 MinBet = 5;               //遊戲局的最小押注值
+    int32 MaxBet = 6;               //遊戲局的最大押注值
+    int32 MinPlayers = 7;           //遊戲局的最低成局人數(至少幾人才會啟動)
+    repeated PlayerInfo Players = 8;//遊戲局內的玩家資訊
+
+  }
+
+  repeated GameTableData GameTables = 1;   //遊戲桌資訊
+  string ClubId = 2;        //俱樂部ID
+  string ClubName = 3;      //俱樂部名稱
+  string ClubPhoto = 4;     //俱樂部圖片(網址)
+  string ClubMarquee = 5;   //俱樂部跑馬燈
+  string Note = 6;          //俱樂部備註
+  int32 UserAgent = 7;      //俱樂部身分 0:會員 1:代理 2:總代
+  double GamePoint = 8;     //玩家自己的點數
+}

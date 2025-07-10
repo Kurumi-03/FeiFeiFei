@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine;
+
+message RoundOutcomeInfo {
+  message PlayerBetOutcomeInfo {
+    message Area {
+      int32 Id = 1;      // 1: 初, 2: 川, 3: 尾
+      double Amount = 2;  // 該區輸贏結果(玩家對莊家)
+    }
+
+    int32 Id = 1;             // 玩家ID
+    repeated Area Areas = 2;  // 初/川/尾各區輸贏結果
+    double TotalAmount = 3;    // 總輸贏結果(初+川+尾)(玩家對莊家)
+  }
+
+  message DealerBetOutcomeInfo {
+    double TotalAmount = 1;  // 總輸贏結果(莊家對所有玩家)
+  }
+
+  message Area {
+    int32 Id = 1;           // 1: 初, 2: 川, 3: 尾
+    int32 FrontResult = 2;  // 該區前墩與莊家前墩的輸贏結果. 0: 和, 1: 勝, -1: 負
+    int32 BackResult = 3;   // 該區後墩與莊家後墩的輸贏結果. 0: 和, 1: 勝, -1: 負
+  }
+
+  DealerBetOutcomeInfo DealerBetOutcome = 1;            // 莊家輸贏結果
+  repeated PlayerBetOutcomeInfo PlayersBetOutcome = 2;  // 所有玩家輸贏結果
+  repeated Area Areas = 3;                              // 初/川/尾各區輸贏結果
+}

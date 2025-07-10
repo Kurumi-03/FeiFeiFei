@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 進行發牌
+message DealAllCardsState {
+  message Hand {
+    repeated int32 Cards = 1;     // 玩家牌
+  }
+
+  map<int32, Hand> Seats = 1;      // key: SeatId (1 ~ MaxSeats), value: Hand
+}
+
+// 發牌階段的同步點
+message DealingSyncPoint {
+  int32 SeatId = 1;   // 自己的座位 -1 表示沒坐下
+  int32 MinBet = 2;   // 最小押注
+  map<int32, Hand> Seats = 3;  // key: SeatId (1 ~ MaxSeats), value: Seat
+
+  message Hand {
+    repeated int32 Cards = 1;   // 玩家牌
+  }
+}

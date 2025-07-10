@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.HorseRacing;
+
+import "RichServer.HorseRacing/Protocol/Public/BetInfo.proto";
+
+message RoundOutcomeInfo {
+  message PlayerBetOutcomeInfo {
+    message WinBetting {
+      BetInfo BetInfo = 1;   // 下注資訊
+      double WinPoints = 2;  // 該注贏的點數(含本). 實際輸贏=WinPoints-BetInfo.Amount
+      double Odds = 3;       // 賠率
+    }
+
+    int32 Id = 1;                            // 玩家ID
+    repeated WinBetting WinBettingList = 2;  // 下注列表
+    double TotalBetPoints = 3;               // 總下注點數
+    double TotalWinPoints = 4;               // 總輸贏點數(含本). 實際總輸贏=TotalWinPoints-TotalBetPoints
+    double CurrentPoints = 5;                // 結算後的點數
+  }
+
+  repeated PlayerBetOutcomeInfo PlayersBetOutcome = 1;  // 所有玩家輸贏結果
+}

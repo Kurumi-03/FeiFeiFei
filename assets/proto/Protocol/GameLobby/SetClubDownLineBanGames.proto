@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 設定下線禁止遊戲
+message SetClubDownLineBanGamesRequest {
+  int32 ToId = 1;                   // 要設定的下線ID
+  string ClubId = 2;                // 俱樂部ID
+  bool DownLineAll = 3;             // 是否同步禁止此成員的所有下線 false:不禁止 true:禁止
+  repeated string BanGameList = 4;  // 要禁止的遊戲ID列表
+}
+
+message SetClubDownLineBanGamesResponse {
+  int32 State = 1; // 1:成功
+  /*
+    [ErrorCode]
+    -1: 傳入資料有誤
+    -2: 查無資料
+    -3: API 查無資料
+    -4: 未加入俱樂部
+    -5: 無權限
+    -6: 非下線會員
+  */
+}

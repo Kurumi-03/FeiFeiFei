@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 取得分享推廣碼連結
+message ClubAgentShareLinkRequest {
+  string ClubId = 1;     // 俱樂部ID
+}
+
+message ClubAgentShareLinkResponse {
+  string ShareLink = 1; // 推廣連結
+  /*
+    [ErrorCode]
+    -1: 傳入資料有誤
+    -2: 查無資料
+    -3: 無權限
+  */
+}

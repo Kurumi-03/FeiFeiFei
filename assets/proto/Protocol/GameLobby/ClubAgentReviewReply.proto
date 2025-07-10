@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 回覆審核
+message ClubAgentReviewReplyRequest {
+  string ClubId = 1;     // 俱樂部ID
+  int32 ReviewId = 2;    // 審核ID
+  int32 IsAgree = 3;     // 1:同意 2:不同意
+}
+                          
+message ClubAgentReviewReplyResponse {
+  int32 State = 1;       // 1:成功 2:俱樂部人員已達上限 3:無此權限 4:已加入此俱樂部 0:其他錯誤
+  /*
+    [ErrorCode]
+    -1: 傳入資料有誤
+    -2: 查無資料
+  */
+}
+
+message ReviewAddClubReceipt {
+  // 審核通過，申請人在線的話會收到通知
+  string Msg = 1;         //加入訊息
+}

@@ -1,0 +1,46 @@
+ syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+// 請求各種珠路資訊
+message RoadInfoRequest {
+  string TableToken = 1;
+}
+
+message RoadInfoResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+  */
+}
+
+message RoadInfoReceipt {
+  message ColumnList {
+    repeated int32 Ball = 1;
+  }
+
+  repeated int32 BallRoad = 1;                    // 所有珠盤路的內容 莊嬴1，莊嬴莊對11，莊嬴閒對21，莊嬴莊對閒對31。 閒嬴41，閒嬴莊對51，閒嬴閒對61，閒嬴莊對閒對71。 和81，和莊對91，和閒對101，和莊對閒對111。
+  map<int32, ColumnList> BigRoad = 2;             // 所有大路的內容 莊嬴1，閒嬴41，若有和會以 0x0100 疊加上去
+  map<int32, ColumnList> BigEyeRoad = 3;          // 所有大眼路的內容 藍色1，紅色2
+  map<int32, ColumnList> SmallRoad = 4;           // 所有小路的內容 藍色1，紅色2
+  map<int32, ColumnList> StrongRoad = 5;          // 所有曱甴路的內容 藍色1，紅色2
+
+  map<int32, ColumnList> AskRoadPBigRoad = 6;     // 閒問路所有大路的內容 莊嬴1，閒嬴41
+  map<int32, ColumnList> AskRoadPBigEyeRoad = 7;  // 閒問路所有大眼路的內容 藍色1，紅色2
+  map<int32, ColumnList> AskRoadPSmallRoad = 8;   // 閒問路所有小路的內容 藍色1，紅色2
+  map<int32, ColumnList> AskRoadPStrongRoad = 9;  // 閒問路所有曱甴路的內容 藍色1，紅色2
+ 
+  map<int32, ColumnList> AskRoadBBigRoad = 10;     // 莊問路所有大路的內容 莊嬴1，閒嬴41
+  map<int32, ColumnList> AskRoadBBigEyeRoad = 11;  // 莊問路所有大眼路的內容 藍色1，紅色2
+  map<int32, ColumnList> AskRoadBSmallRoad = 12;   // 莊問路所有小路的內容 藍色1，紅色2
+  map<int32, ColumnList> AskRoadBStrongRoad = 13;  // 莊問路所有曱甴路的內容 藍色1，紅色2
+
+  int32 BankerCnts = 14;			            // 開莊的次數
+  int32 PlayerCnts = 15;	                // 開閒的次數
+  int32 TieCnts = 16;				              // 開和的次數
+  int32 BankerPairCnts = 17;			        // 開莊對的次數
+  int32 PlayerPairCnts = 18;	            // 開閒對的次數
+  string TableToken = 19;                 // 哪一桌的資料
+}

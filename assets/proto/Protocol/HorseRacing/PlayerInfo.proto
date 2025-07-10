@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package RichServer.Protocol.HorseRacing;
+
+message PlayerInfo {
+  int32 Id = 1;            // 玩家ID
+  int32 SeatId = 2;        // 座位ID. 0: 表示不在座位上, 1: 莊家(目前莊家固定為公司)
+  string NickName = 3;     // 玩家暱稱
+  string AvatarId = 4;     // 玩家大頭貼ID
+  double GPoints = 5;      // 玩家遊戲點數
+  double MaxBetLimit = 6;  // 玩家個人最大下注限制
+  double MinBetLimit = 7;  // 玩家個人最小下注限制
+}

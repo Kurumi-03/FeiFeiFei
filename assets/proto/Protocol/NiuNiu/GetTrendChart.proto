@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+// 走勢圖
+message GetTrendChartRequest {
+  string TableToken = 1;
+}
+
+message GetTrendChartResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+
+  message RoundOutcome {
+    message Seat {
+      int32 Id = 1;           // 座位ID
+      string PlayerName = 2;  // 玩家名稱(暱稱)
+      int32 HandType = 3;     // 牌型
+    }
+
+    int32 RoundId = 1;        // 第幾局
+    repeated Seat Seats = 2;  // 各座位開牌資訊. 沒在列表的座位ID表示無人
+  }
+
+  repeated RoundOutcome RoundsOutcome = 1;  // 各局歷史紀錄
+}

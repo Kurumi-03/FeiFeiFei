@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+// 取得當前在線玩家人數
+message GetOnlinePlayerCountRequest {
+  string TableToken = 1;  // 遊戲桌token
+}
+
+message GetOnlinePlayerCountResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+
+  int32 PlayerCount = 1;
+}

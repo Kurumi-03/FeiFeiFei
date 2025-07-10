@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 代理給錢
+message ClubAgentGiveMoneyRequest {
+  int32 TakeOverId = 1;     // 收到錢的ID
+  string ClubId = 2;     // 俱樂部ID
+  double Money = 3;     // 金額
+}
+
+message ClubAgentGiveMoneyResponse {
+  //-1:送出要求的玩家目前是在遊戲狀態
+  //-2:參數錯誤
+
+  int32 State = 1;          // 1:成功 2:非下線 3:金額不足 4:查無資料 5:超出封頂限額 6:審核用-遊戲中無法給點
+}

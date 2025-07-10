@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message LogoutNotifyReceipt {
+ string Info = 1;     //通知為何被強制登出的文字
+}
+

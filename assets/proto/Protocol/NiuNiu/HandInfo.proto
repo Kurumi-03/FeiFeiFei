@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+message HandInfo {
+  // [牌型代碼]
+  // 0 = 無妞
+  // 1 = 妞1
+  // 2 = 妞2
+  // 3 = 妞3
+  // 4 = 妞4
+  // 5 = 妞5
+  // 6 = 妞6
+  // 7 = 妞7
+  // 8 = 妞8
+  // 9 = 妞9
+  // 10 = 妞妞
+  // 11 = 順子牛
+  // 12 = 銀花牛
+  // 13 = 五龍牛
+  // 14 = 同花牛
+  // 15 = 葫蘆牛
+  // 16 = 鐵支牛
+  // 17 = 五小牛
+  int32 Type = 1;                  // 牌型
+  repeated int32 Cards = 2;        // 五張牌
+  repeated int32 SortedCards = 3;  // 依照牌型排序的五張牌
+}

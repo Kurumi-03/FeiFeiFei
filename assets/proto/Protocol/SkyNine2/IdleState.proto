@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine2;
+
+import "RichServer.SkyNine2/Protocol/Public/TableInfo.proto";
+import "RichServer.SkyNine2/Protocol/Public/PlayerInfo.proto";
+
+// 閒置階段的同步點
+message IdleSyncPoint {
+  TableInfo Table = 1;              // 遊戲桌資訊
+  repeated PlayerInfo Players = 2;  // 所有玩家資訊
+}

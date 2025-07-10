@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 下線操作管理
+message ClubDownLinePerFsRequest {
+  int32 SearchId = 1;     // 要查詢的下線ID,填空查自己的下線
+  string ClubId = 2;     // 俱樂部ID
+}
+
+message ClubDownLinePerFsResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限
+    -3: 其他參數錯誤
+  */
+}
+
+message ClubDownLinePerFsReceipt {
+  message ClubDownLinePerFs {
+    int32 PlayerId = 1;                 // 玩家ID
+    string NickName = 2;                // 玩家暱稱
+    string Head = 3;                    // 玩家頭像
+    double Money = 4;                   // 金額(俱樂部積分)
+    double MoneyMax = 5;                // 金額(俱樂部積分)
+    int32 Agent = 6;                    // 玩家身分 0:會員 1:代理 2:總代
+    map<string, double> MinLimit = 7;   // 各遊戲最小限額(遊戲ID,最小限額)
+    map<string, double> MaxLimit = 8;   // 各遊戲最大限額(遊戲ID,最大限額)
+    map<string, double> Per = 9;        // 佔成(遊戲ID,交上線比例)
+    map<string, double> Fs = 10;         // 返水(遊戲ID,獎勵比例)
+    int32 CanChat = 11;                 // 是否可以聊天(1:開放 0:禁言)
+    int32 LimitSet = 12;                // 是否可以調整限額 (1:開放 0:關閉)
+    string BanGame = 13;                 // 是否可以禁止遊戲---- 禁止下注 遊戲代號1,遊戲代號2...(ex:'200001,200002')
+    int32 TotalAgent = 14;              // 下線代理總數
+    int32 TotalMember = 15;             // 下線會員總數
+    int32 PerfsSet = 16;                // 是否已設定佔成返水 1:是 0:否
+  }
+
+  int32 State = 1;                // 狀態(1:成功 其餘=>99:參數錯誤 101:查無會員 102:查無俱樂部 103:會員未加入俱樂部 104:查無會員(search_id 不屬於搜尋人下線))
+  int32 TotalAgent = 2;         // 下線代理總數
+  double TotalAgentMoney = 3;   // 下線代理總積分
+  repeated ClubDownLinePerFs ClubDownLinePerFsData = 4;   // 下線資料
+}
+

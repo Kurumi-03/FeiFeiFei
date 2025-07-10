@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message PlayerClubGameRecordRequest {
+  // 取玩家俱樂部戰績
+  string ClubId = 1;      //俱樂部ID
+}
+
+message PlayerClubGameRecordResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 其他參數錯誤
+  */
+  int32 GameRecordCount = 1; // 帳務總筆數
+  repeated ClubGameRecords ClubGameRecords = 2;   // key: OrderId, value: GameRecords
+}
+
+message ClubGameRecords {
+  int32 No = 1;               // 單號
+  string RoundId = 2;            // 局號
+  string BetTime = 3;               // 下注時間
+  repeated GameRecordPlayer GameRecordPlayers = 4;   // 各玩家遊戲紀錄,第一筆為莊
+}
+
+message GameRecordPlayer {
+  string Name = 1;                // 名稱
+  double BetPt = 2;                // 押注
+  double WinPt = 3;               // 贏點
+  repeated string Cards = 4;      // 所有的手牌
+}

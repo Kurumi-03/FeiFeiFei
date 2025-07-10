@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 俱樂部代理踢下線會員
+message ClubAgentKickDownLineMemberRequest {
+  int32 KickId = 1;     // 被踢的下線會員ID
+  string ClubId = 2;     // 俱樂部ID
+}
+
+message ClubAgentKickDownLineMemberResponse {
+  //-1:送出要求的玩家目前是在遊戲狀態
+  //-2:參數錯誤
+
+  int32 State = 1;          // 1:成功 2:查無資料 3:尚有餘額 4:非屬於此代理線 5:尚有下線 0:異常錯誤
+}
+
+message ClubAgentKickDownLineMemberReceipt {
+  string ClubName = 1;     // 俱樂部名稱(只會通知被踢的人)
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message SyncPoint {
+  string Name = 1;              // "xxxSyncPoint"
+  bytes Data = 2;               // xxxSyncPoint
+  int32 SyncId = 3;             // 同步Id. 0 表示不需要同步
+  int32 SyncTime = 4;           // 同步時間. SyncId 不為 0, 此值才有意義. 0 表示沒有時間限制. 此值通常表示該State的思考時間/時間限制
+  int32 SyncRemainingTime = 5;  // 同步剩餘時間. SyncId 不為 0, 此值才有意義. 0 表示時間已到. 此值通常表示該State的思考時間/時間限制
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 設為代理
+message SetClubAgentRequest {
+  int32 ToAgentId = 1;          // 要轉代理的ID
+  string ClubId = 2;            // 俱樂部ID
+  map<string,double> Pr = 3;    // 佔成(交上線比例,依序為系統、對戰、其他)
+  map<string,double> Fs = 4;    // 返水(獎勵比例,依序為系統、對戰、其他)
+}
+
+message SetClubAgentResponse {
+  int32 State = 1;                    // 1: 成功設為代理(-1:設定值超過上線  99:參數錯誤 101:查無會員 102:查無俱樂部 103:會員未加入俱樂部 104:非代理身分 105:查無設定會員 106:設定會員未加入俱樂部 107:設定會員身分已為代理 108:設定會員非屬於此代理線)
+  map<string, double> Per = 3;        // 有超過佔成被調整後的設定值(遊戲ID,交上線比例)
+  map<string, double> Fs = 4;         // 有超過返水被調整後的設定值(遊戲ID,獎勵比例)
+  /*
+    [ErrorCode]
+    -1: 參數錯誤
+    -2: 查無資料
+    -3: 未加入俱樂部
+    -4: 無權限
+    -5: 已為代理
+    -6: 不屬於此代理線
+  */
+}

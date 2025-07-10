@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+import "RichServer.NiuNiu/Protocol/Public/TableInfo.proto";
+import "RichServer.NiuNiu/Protocol/Public/PlayerInfo.proto";
+
+// 開始下注
+message BetTimeState {
+}
+
+// 下注階段的同步點
+message BetTimeSyncPoint {
+  message TableBetInfo {
+    repeated double AllBets = 1;  // 所有玩家下注籌碼清單
+  }
+
+  message PlayerBetInfo {
+    int32 Id = 1;        // 玩家ID
+    double TotalBet = 2;  // 玩家總下注籌碼
+  }
+
+  TableInfo Table = 1;                    // 遊戲桌資訊
+  TableBetInfo TableBet = 2;              // 遊戲桌下注資訊
+  repeated PlayerInfo Players = 3;        // 所有玩家資訊
+  repeated PlayerBetInfo PlayersBet = 4;  // 所有玩家下注資訊
+}

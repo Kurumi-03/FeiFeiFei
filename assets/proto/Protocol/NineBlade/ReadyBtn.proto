@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 是否顯示準備按鈕
+
+message ReadyBtnReceipt {
+  bool ReadyBtn = 1;     // true:顯示 false:不顯示
+  bool Enable = 2;     // true:可按 false:不可按
+}

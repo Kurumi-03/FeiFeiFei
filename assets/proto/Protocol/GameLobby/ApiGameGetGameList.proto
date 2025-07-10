@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 取得外接館遊戲列表
+message ApiGameGetGameListRequest {
+  string APiGameId = 1;  // 外接館遊戲ID
+}
+
+message ApiGameGetGameListResponse {
+  /*
+    [ErrorCode]
+    -1:參數錯誤
+  */
+}
+
+message ApiGameGetGameListReceipt {
+  message ApiGameData{
+    string Name = 1;        //遊戲名稱
+    string GameListId = 2;  //外接館遊戲代碼
+    string ImgUrl = 3;      //遊戲圖片網址
+  }
+  string APiGameId = 1;  // 外接館遊戲ID
+  int32 State = 2;  //0:成功 99:api回報參數錯誤 106:查無遊戲 108:遊戲關閉中
+  repeated ApiGameData ApiGameDatas = 3;    //所有資訊(State =0 才會有值)
+}

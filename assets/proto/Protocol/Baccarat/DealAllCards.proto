@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+// 進行發牌(因為4張都是蓋牌，不需要填資料)
+message DealAllCardsState {
+}
+
+// 發牌階段的同步點(因為4張都是蓋牌，不需要填資料)
+message DealingSyncPoint {
+}

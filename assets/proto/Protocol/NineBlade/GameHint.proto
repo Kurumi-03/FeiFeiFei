@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+//狀態提示詞關閉
+message GameHintReceipt {
+  bool NeedClose = 1;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+// 選擇遊戲玩法
+message SelectGameModeRequest {
+  string TableToken = 1;
+  int32 GameMode = 2;  // 遊戲玩法. 0: 翻倍牛, 1: 超牛
+  // 如果沒有傳送此封包, 預設為 翻倍牛 玩法
+}
+
+message SelectGameModeResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 玩家不在座位上
+    -6: 同一局不能重複設定遊戲玩法
+  */
+}

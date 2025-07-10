@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 設定限額
+message SetClubDownLineLimitRequest {
+  int32 ToId = 1;               // 要設定限額的ID
+  string ClubId = 2;            // 俱樂部ID
+  map<string,int32> Min = 3;    // 最小限額(key:game id, value:設定的數值)
+  map<string,int32> Max = 4;    //最大限額(key:game id, value:設定的數值)
+}
+
+message SetClubDownLineLimitResponse {
+  int32 State = 1; // -1:設定值超過上線 1: 設定成功 2:查無資料 3:非下線成員 4:無權限 5: 禁止修改
+  map<string,int32> Min = 3;    // 設定值超過上線時被調整的最小限額(key:game id, value:設定的數值)
+  map<string,int32> Max = 4;    // 設定值超過上線時被調整的最大限額(key:game id, value:設定的數值)
+  /*
+    [ErrorCode]
+    -1: 參數錯誤
+    -2: 查無資料
+  */
+}

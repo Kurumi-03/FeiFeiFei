@@ -1,0 +1,109 @@
+{
+  "__version__": "1.0.6",
+  "general": {
+    "designResolution": {
+      "width": 1280,
+      "height": 585,
+      "fitHeight": true,
+      "fitWidth": true
+    },
+    "downloadMaxConcurrency": 20
+  },
+  "custom_joint_texture_layouts": [],
+  "layer": [
+    {
+      "name": "layer6",
+      "value": 64
+    },
+    {
+      "name": "layer5",
+      "value": 32
+    },
+    {
+      "name": "layer4",
+      "value": 16
+    },
+    {
+      "name": "layer3",
+      "value": 8
+    },
+    {
+      "name": "layer2",
+      "value": 4
+    },
+    {
+      "name": "layer1",
+      "value": 2
+    },
+    {
+      "name": "layer0",
+      "value": 1
+    },
+    {
+      "name": "layer7",
+      "value": 128
+    },
+    {
+      "name": "layer8",
+      "value": 256
+    },
+    {
+      "name": "layer9",
+      "value": 512
+    },
+    {
+      "name": "layer10",
+      "value": 1024
+    },
+    {
+      "name": "layer11",
+      "value": 2048
+    },
+    {
+      "name": "layer12",
+      "value": 4096
+    },
+    {
+      "name": "layer13",
+      "value": 8192
+    },
+    {
+      "name": "layer14",
+      "value": 16384
+    },
+    {
+      "name": "layer15",
+      "value": 32768
+    },
+    {
+      "name": "layer16",
+      "value": 65536
+    },
+    {
+      "name": "layer17",
+      "value": 131072
+    },
+    {
+      "name": "layer18",
+      "value": 262144
+    },
+    {
+      "name": "layer19",
+      "value": 524288
+    }
+  ],
+  "script": {
+    "preserveSymlinks": true,
+    "importMap": "",
+    "previewBrowserslistConfigFile": "",
+    "loose": false
+  },
+  "physics": {
+    "gravity": {
+      "y": -80
+    },
+    "fixedTimeStep": 0.00667,
+    "maxSubSteps": 3,
+    "allowSleep": false
+  }
+}

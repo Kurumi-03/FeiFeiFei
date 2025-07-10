@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 加減分紀錄
+message ClubMyPointChangeRecordRequest {
+  int64 StartTime = 1;      // 開始時間
+  int64 EndTime = 2;        // 結束時間
+  string ClubId = 3;        // 俱樂部ID
+}
+
+message ClubMyPointChangeRecordResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限或不在該俱樂部內
+    -3: 其他參數錯誤
+  */
+}
+
+message ClubMyPointChangeRecordReceipt {
+  message ClubMyPointRecord {
+    int32 Type = 1;          // 轉帳類別 1:轉出 2:轉入
+    string DateTime = 2;     // 日期時間
+    double BeforenPt = 3;    // 原點數
+    double DeltaPt = 4;      // 變動點數
+    double AfterPt = 5;      // 變動後點數
+    string Member = 6;       // 對象帳號
+  }
+  repeated ClubMyPointRecord ClubMyPointRecords = 1;   // 玩家加減分紀錄
+}
+
+
+

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message CliMateGameRequest {
+  string gamename = 1;    //遊戲名稱
+  int32 paramindex = 2;   //使用NineBlade_param的第幾個參數
+  int32 tabletype = 3;    //0:歡樂場遊戲桌 1:俱樂部遊戲桌
+  string Roomtoken = 4;   //指定俱樂部的局時,需填入要加入遊戲房間的token
+}
+
+message CliMateGameResponse {
+  int32 state=1;              //除1成功外，其他都算失敗 2:點數不足 3:非俱樂部的玩家不能加入俱樂部桌 4:之前遊戲進行中 5:傳過來的token無效(找不到該遊戲桌) 6:館主不能進行遊戲 7:現在是遊戲維護時間 8:遊戲桌準備移除,無法進入 9:點數已超過封頂值，無法進入遊戲 10:玩家被禁止遊玩該遊戲
+  string srvname=2;           //玩家要送出entergame的gameserver名稱
+  string Roomtoken= 3;        //要加入遊戲房間的token
+  string RoomKey = 4;         //該房間的key(斷線重新入局時使用)
+  string MaintenanceInfo = 5; //state=7時，會提示維護的時間
+}
+

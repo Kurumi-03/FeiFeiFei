@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message CliReJoinGameRequest {
+  string TableToken = 1;  //重連的遊戲局token
+  string ClubId = 2;      //該遊戲的clubeid
+}
+
+message CliReJoinGameResponse {
+  int32 State = 1;       //1:成功，玩家可以送出entergame 2:該遊戲局已經解散(玩家留在大廳即可) 3:clubid對應錯誤 4:玩家不是重新入局的狀態 5:玩家已在其他遊戲中
+  string GameName = 2;   //遊戲名稱，當 State = 1 時有值
+  string Srvname=3;      //玩家要送出entergame的gameserver名稱
+}
+

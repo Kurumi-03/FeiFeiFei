@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine2;
+
+message RoundOutcomeInfo {
+  message DealerBetOutcomeInfo {
+    double TotalAmount = 1;  // 總輸贏結果(莊家對所有閒家)
+  }
+
+  message PlayerBetOutcomeInfo {
+    message BettingArea {
+      int32 Id = 1;        // 參考 PlaceBet.proto
+      double Amount = 2;   // 該區輸贏結果(閒家對莊家)
+    }
+
+    int32 Id = 1;                           // 玩家ID
+    repeated BettingArea BettingAreas = 2;  // 各區輸贏結果
+    double TotalAmount = 3;                 // 總輸贏結果(所有下注區)(閒家對莊家)
+    double GPoints = 4;                     // 當前點數
+  }
+
+  DealerBetOutcomeInfo DealerBetOutcome = 1;            // 莊家輸贏結果
+  repeated PlayerBetOutcomeInfo PlayersBetOutcome = 2;  // 所有玩家輸贏結果
+}

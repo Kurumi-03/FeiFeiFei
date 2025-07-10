@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+// 取得每回合開出的倍數
+message GetRoundInfoHistoryRequest {
+  string TableToken = 1;  // 遊戲桌token
+}
+
+message GetRoundInfoHistoryResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+
+  message RoundInfo {
+    string RoundId = 1;     // 局數
+    double Multiplier = 2;  // 倍數
+  }
+
+  repeated RoundInfo List = 1;
+  double HistoricalMultiplier = 2;  // 歷史最高倍數
+  double TodaysMultiplier = 3;      // 今日最高倍數
+}

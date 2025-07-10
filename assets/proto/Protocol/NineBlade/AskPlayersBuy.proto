@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 詢問玩家買牌
+message AskPlayersBuyState {
+  repeated int32 Seats = 1; // 需買牌的座位ID LIST
+}
+
+
+// 買牌階段的同步點
+message AskPlayersBuySyncPoint {
+}

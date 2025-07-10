@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PK10;
+
+//由開獎數量依序(由多到少)列出可押的玩法
+message ResultSortDescRequest {
+  string TableToken = 1;
+}
+
+
+//長龍只統計 2 4 8 三種玩法,至少要開2次以上才會列入長龍
+message ResultSortDescResponse {
+  message Result{
+    // 2. 1~10名猜大小單雙
+    // 4. 名次組合猜龍虎
+    // 8. 冠亞和值猜大小單雙
+
+    int32 Mode = 1;     // 開獎模式
+    int32 Arg1 = 2;     // 參數1
+    int32 Arg2 = 3;     // 參數2
+    int32 Counts = 4;   // 出現次數
+  }
+  repeated Result Results=1;
+}

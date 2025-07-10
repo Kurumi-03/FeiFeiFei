@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 取得外接館詳細注單
+message ApiGameRecordDetailRequest {
+  string APiGameId = 1;   // 外接館遊戲ID
+  int64 StartTime = 2;    // 開始時間
+  int64 EndTime = 3;      // 結束時間
+  int32 PageNo = 4;       // 查詢頁數(未傳參數會預設第1頁)
+  int32 PageSize = 5;     // 一頁回傳筆數(未傳參數會預設20筆)
+}
+
+message ApiGameRecordDetailResponse {
+  /*
+    [ErrorCode]
+    -1:參數錯誤
+    -2:不在該俱樂部內
+  */
+}
+
+message ApiGameRecordDetailReceipt {
+  message ApiGameRecordDetail{
+    string No = 1;          //外接館下注單號
+    int32 BetTime = 2;      //投注時間 unix時間戳
+    string BetTimeStr = 3;  //投注時間文字
+    string SubGameName = 4; //遊戲名稱
+    double BetMoney = 5;    //投注金額
+    double WinLose = 6;     //輸贏金額
+    double Water = 7;       //獎勵金額
+    int32 Status = 8;       //注單狀態 1:已中獎 2:未中獎
+    string StatusStr = 9;   //注單狀態文字
+  }
+  int32 State = 1;                                  //0:成功 99:參數錯誤 100:查詢時間錯誤 101:查無會員 102:查無俱樂部 103:俱樂部查無該會員 106:查無遊戲
+  string APiGameId = 2;   // 外接館遊戲ID
+  int32 TotalPages = 3;                             //總頁數(*PageSize=總筆數)
+  repeated ApiGameRecordDetail ApiGameRecords = 4;  //注單詳細資訊List(State =0 才會有值)
+}

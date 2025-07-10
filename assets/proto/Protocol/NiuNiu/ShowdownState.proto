@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+import "RichServer.NiuNiu/Protocol/Public/TableInfo.proto";
+import "RichServer.NiuNiu/Protocol/Public/PlayerInfo.proto";
+import "RichServer.NiuNiu/Protocol/Public/HandInfo.proto";
+import "RichServer.NiuNiu/Protocol/Public/RoundOutcomeInfo.proto";
+
+// 開始比牌
+message ShowdownState {
+  message PlayerBetInfo {
+    int32 Id = 1;       // 玩家ID
+    HandInfo Hand = 2;  // 手牌資訊
+  }
+
+  map<int32, PlayerBetInfo> Seats = 1;     // 每個座位的下注資訊
+  RoundOutcomeInfo RoundOutcome = 2;      // 輸贏結果
+}
+
+// 比牌階段的同步點
+message ShowdownSyncPoint {
+  message TableBetInfo {
+    repeated double AllBets = 1;  // 所有玩家下注籌碼清單
+  }
+
+  message PlayerBetInfo {
+    int32 Id = 1;        // 玩家ID
+    double TotalBet = 2;  // 玩家總下注籌碼
+    HandInfo Hand = 3;   // 手牌資訊
+  }
+
+  TableInfo Table = 1;                    // 遊戲桌資訊
+  TableBetInfo TableBet = 2;              // 遊戲桌下注資訊
+  repeated PlayerInfo Players = 3;        // 所有玩家資訊
+  map<int32, PlayerBetInfo> Seats = 4;    // 每個座位的下注資訊
+  RoundOutcomeInfo RoundOutcome = 5;      // 輸贏結果
+}

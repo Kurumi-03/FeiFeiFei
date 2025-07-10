@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 取得自己下線詳細戰績報表
+message ClubDownLineReportRequest {
+  string ClubId = 1;      // 俱樂部ID
+  int32 SearchId = 2;     // 要查詢的下線ID
+  int64 StartTime = 3;    // 開始時間
+  int64 EndTime = 4;      // 結束時間
+}
+
+message ClubDownLineReportResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限
+    -3: 其他參數錯誤
+  */
+}
+
+message ClubDownLineReportReceipt {
+  message ClubDownLineReportGame {
+    string GameId = 1;        //遊戲id, 如果是"000000"6個0，代表該會員總和的資料。如果是"111111"6個1，代表下線總和的資料，
+    int32 Count = 2;          //筆數
+    double BetPoint = 3;      //投注點數
+    double RealBetPoint = 4;  //有效投注點數
+    double FSPoint = 5;       //獎勵
+    double WinPoint = 6;      //輸贏
+    double RTP = 7;           //rtp值(WinPoint/BetPoint)
+    double FsSet = 8;         //洗碼比
+    double Sum = 9;           //總點數
+    double PerSet= 10;        //佔成
+    double ToUpPoint =11;     //交上線
+    double RoomCardCnts = 12;  //房卡張數
+  }
+  message ClubMemberDownLineReport {
+    string MemberId = 1;    //會員id
+    string NickName = 2;    //玩家暱稱
+    string Head = 3;        //玩家頭像
+    double GamePoints = 4;  //剩餘積分
+    int32 Agent = 5;        //玩家身分 0:會員 1:代理 2:總代
+    repeated ClubDownLineReportGame ClubDownLineReportsGame = 6;   // 各遊戲積分報表
+  }
+  string MemberId = 1;    //查詢者會員id
+  map<string,ClubMemberDownLineReport> ClubMemberDownLineReports= 2;  //列出下線所有玩家的積分報表
+}
+

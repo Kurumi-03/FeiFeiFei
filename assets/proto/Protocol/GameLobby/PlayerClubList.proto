@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message PlayerClubListRequest {
+  // 取玩家有加入的俱樂部資料
+}
+
+message PlayerClubListResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 其他參數錯誤
+  */
+  int32 ClubCount = 1; // 已加入的俱樂部數量, 皆未加入 = 0
+  repeated LobbyInfoClubs Clubs = 2;   // key: ClubId, value: Clubs
+}
+
+message LobbyInfoClubs {
+  string ClubId = 1;      //俱樂部ID
+  string ClubName = 2;      //俱樂部名稱
+  string ClubPhoto = 3;     //俱樂部圖片(網址)
+  int32 CurMemberCnts = 4;  //俱樂部目前人數
+  int32 MemberCntsMax = 5;  //俱樂部最大人數
+}

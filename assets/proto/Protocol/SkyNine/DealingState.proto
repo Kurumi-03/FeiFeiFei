@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine;
+
+import "RichServer.SkyNine/Protocol/Public/TableInfo.proto";
+import "RichServer.SkyNine/Protocol/Public/PlayerInfo.proto";
+
+// 開始發牌
+message DealingState {
+  int32 RemainingCardCount = 1;  // 桌面上剩餘的牌數量(尚未發牌). 如果此值為 40,, 表示 Server 有重新洗牌過, Client 可視需要呈現洗牌動畫
+  int32 Dice1 = 2;               // 第一顆骰子(1~6)
+  int32 Dice2 = 3;               // 第二顆骰子(1~6)
+  int32 Dice3 = 4;               // 第三顆骰子(1~6)
+  int32 FirstBase = 5;           // 從哪個位置開始發牌. 0: 莊家, 1: 初, 2: 川, 3: 尾
+}
+
+// 發牌階段的同步點
+message DealingSyncPoint {
+  message TableExInfo {
+    int32 RemainingCardCount = 1;  // 桌面上剩餘的牌數量(尚未發牌). 如果此值為 40,, 表示 Server 有重新洗牌過, Client 可視需要呈現洗牌動畫
+    int32 Dice1 = 2;               // 第一顆骰子(1~6)
+    int32 Dice2 = 3;               // 第二顆骰子(1~6)
+    int32 Dice3 = 4;               // 第三顆骰子(1~6)
+    int32 FirstBase = 5;           // 從哪個位置開始發牌. 0: 莊家, 1: 初, 2: 川, 3: 尾
+  }
+
+  TableInfo Table = 1;              // 遊戲桌資訊
+  TableExInfo TableEx = 2;          // 遊戲桌額外資訊
+  repeated PlayerInfo Players = 3;  // 所有玩家資訊
+}

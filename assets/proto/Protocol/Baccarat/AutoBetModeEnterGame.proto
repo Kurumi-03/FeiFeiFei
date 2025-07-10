@@ -1,0 +1,45 @@
+ syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+import "RichServer.Baccarat/Protocol/Public/RoadMapList.proto";
+
+// 進入遊戲時，主動通知目前的自動投注模式訊息
+
+//目前的自動投注模式是1
+message AutoBetModeEnterGame1Receipt {
+  int32 BetTarget = 1;    //下注目標 0:閒 1:莊
+  double BetAmount = 2;   //下注金額
+  int32 BetRouns = 3;     //下注局數
+  int32 Profit = 4;       //停利點
+  int32 Loss = 5;         //停損點
+  int32 RounsLeft = 6;    //剩餘局數
+}
+
+
+// 目前的自動下注模式2(順追)
+message AutoBetModeEnterGame2Receipt {
+  int32 Profit = 1;                           //停利點
+  int32 Loss = 2;                             //停損點
+  int32 MaxRouns = 3;                         //停止關數(下完關數回到第一關)
+  bool IsContinueTie = 4;                     //開和是否續追
+  bool IsContinueLimit = 5;                   //當桌 單邊達限紅 下一關是否續追
+  repeated int32 BetTargets = 6;              //每關下注目標 0:閒 1:莊
+  repeated int32 BetAmounts = 7;              //每關下注金額
+  map<int32, RoadMapList> MatchRoad = 8;      //當符合設定的路時，會啟動順追模式(可設定多張不同的路)
+  int32 RounsLeft = 9;                        //剩餘關數
+}
+
+// 目前的自動下注模式3(倍投)
+message AutoBetModeEnterGame3Receipt {
+  int32 Profit = 1;                           //停利點
+  int32 Loss = 2;                             //停損點
+  int32 MaxRouns = 3;                         //停止關數(下完關數回到第一關)
+  int32 Mutiple = 4;                          //倍投方式(2:2倍投 3:3倍投 ....自定義時,Mutiple代表投注額)
+  bool IsContinueTie = 5;                     //開和是否續追
+  bool IsContinueLimit = 6;                   //當桌 單邊達限紅 下一關是否續追
+  repeated int32 BetTargets = 7;              //每關下注目標 0:閒 1:莊
+  repeated int32 BetAmounts = 8;              //每關下注金額
+  map<int32, RoadMapList> MatchRoad = 9;      //當符合設定的路時，會啟動倍投模式(可設定多張不同的路)
+  int32 RounsLeft = 10;                       //剩餘關數
+}

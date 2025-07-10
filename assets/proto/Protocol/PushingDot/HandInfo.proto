@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PushingDot;
+
+message HandInfo {
+  int32 HandType = 1;  // 牌型. 0: 點數, 1: 對子
+  int32 Card1 = 2;     // 第一張牌. 1: 一筒, 2: 二筒, ..., 9: 九筒, 10: 白皮
+  int32 Card2 = 3;     // 第二張牌. 1: 一筒, 2: 二筒, ..., 9: 九筒, 10: 白皮
+  int32 Total = 4;     // 點數總計
+  // 當 HandType == 0, Total: 0000(鱉十), 0030(半點), 0100(一點),..., 0930(九點半)
+  // 當 HandType == 1, Total: 0100(一筒對子), 0200(二筒對子),..., 1000(白皮對子)
+}

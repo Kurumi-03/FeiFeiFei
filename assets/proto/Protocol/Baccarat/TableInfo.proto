@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+// 請求桌資訊
+message TableInfoRequest {
+  string TableToken = 1;
+}
+
+message TableInfoResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+  */
+}
+
+message TableInfoReceipt {
+  string GameSerNum = 1;                // 遊戲局的序號，前端顯示後作為查詢LOG用
+  int32 MinBet = 2;                     // 最小押注(桌限額)
+  int32 CardLeftCnts = 3;				        // 剩餘牌的數量
+  int32 AutoRounsLeft = 4;              // 自動投注剩餘局數(若無啟動自動投注則為0)
+  repeated double BetLimit = 5;         // 每個區域的限紅值(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+}

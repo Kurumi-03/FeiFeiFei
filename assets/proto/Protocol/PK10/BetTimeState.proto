@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PK10;
+
+import "RichServer.PK10/Protocol/Public/TableInfo.proto";
+import "RichServer.PK10/Protocol/Public/PlayerInfo.proto";
+import "RichServer.PK10/Protocol/Public/BetInfo.proto";
+
+// 開始下注
+message BetTimeState {
+}
+
+// 下注階段的同步點
+message BetTimeSyncPoint {
+  message PlayerBetInfo {
+    int32 Id = 1;                  // 玩家ID
+    repeated BetInfo BetList = 2;  // 下注資訊列表
+  }
+
+  TableInfo Table = 1;                    // 遊戲桌資訊
+  repeated PlayerInfo Players = 2;        // 所有玩家資訊
+  repeated PlayerBetInfo PlayersBet = 3;  // 所有玩家下注資訊
+}

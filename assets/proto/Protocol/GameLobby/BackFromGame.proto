@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 玩家從遊戲回到大廳時呼叫
+message BackFromGameRequest {
+  string Tabletoken = 1;  // 之前遊戲局的token
+}
+
+message BackFromGameResponse {
+  /*
+    [ErrorCode]
+    -1:遊戲局未回報玩家已離開遊戲
+  */
+}
+
+message BackFromGameReceipt {
+  int32 St = 1;     //1:已成功回大廳 (....其它錯誤值待訂)
+}

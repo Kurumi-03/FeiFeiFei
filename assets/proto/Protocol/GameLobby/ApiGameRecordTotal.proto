@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 取得外接館注單總計
+message ApiGameRecordTotalRequest {
+  int64 StartTime = 1;     // 開始時間
+  int64 EndTime = 2;      // 結束時間
+}
+
+message ApiGameRecordTotalResponse {
+  /*
+    [ErrorCode]
+    -1:參數錯誤
+    -2:不在該俱樂部內
+  */
+}
+
+message ApiGameRecordTotalReceipt {
+  message ApiGameRecordTotal{
+    string Name = 1;        //遊戲名稱
+    string GameListId = 2;  //外接館遊戲代碼
+    int32 BetCount = 3;     //總筆數
+    double BetMoney = 4;    //總投注金額
+    double WinLose = 5;     //總輸贏金額
+    double Water = 6;       //總獎勵金額
+  }
+  int32 State = 1;                                      //0:成功 99:參數錯誤 100:查詢時間錯誤 101:查無會員 102:查無俱樂部 103:俱樂部查無該會員
+  repeated ApiGameRecordTotal ApiGameTotalRecords = 2;  //注單總計資訊List(State =0 才會有值)
+}

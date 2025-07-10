@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package RichServer.Protocol.HorseRacing;
+
+import "RichServer.HorseRacing/Protocol/Public/TableInfo.proto";
+import "RichServer.HorseRacing/Protocol/Public/PlayerInfo.proto";
+import "RichServer.HorseRacing/Protocol/Public/BetType.proto";
+import "RichServer.HorseRacing/Protocol/Public/BetInfo.proto";
+import "RichServer.HorseRacing/Protocol/Public/RoundOutcomeInfo.proto";
+
+// 開始比牌
+message ShowdownState {
+  message Bonus{
+    BetType BetType = 1;  // 下注類型
+    int32   Mutiple = 2;  // Bonus要加上的倍率(5或10)
+  }
+  repeated int32 FinalHorses = 1;     // 比賽結果. [0]: 第一名的馬, [1]: 第二名的馬, ... 以此類推
+  repeated Bonus BonusList = 2;       // Bonus列表(預設為4筆)
+  RoundOutcomeInfo RoundOutcome = 3;  // 輸贏結果
+  BetType FinalType = 4;              // 結果的type
+  int32 GoldenHorseMutiple = 5;       // 黃金馬的倍率，這個值大於0表示這場有黃金馬，並表示其倍率
+  int32 Maintenance = 6;              // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}
+
+// 比牌階段的同步點
+message ShowdownSyncPoint {
+  message PlayerBetInfo {
+    int32 Id = 1;                  // 玩家ID
+    repeated BetInfo BetList = 2;  // 下注資訊列表
+  }
+
+  TableInfo Table = 1;                                  // 遊戲桌資訊
+  repeated PlayerInfo Players = 2;                      // 所有玩家資訊
+  repeated PlayerBetInfo PlayersBet = 3;                // 所有玩家下注資訊
+  repeated int32 FinalHorses = 4;                       // 比賽結果. [0]: 第一名的馬, [1]: 第二名的馬, ... 以此類推
+  repeated ShowdownState.Bonus BonusList = 5;           // Bonus列表(預設為4筆)
+  RoundOutcomeInfo RoundOutcome = 6;                    // 輸贏結果
+  BetType FinalType = 7;                                // 結果的type
+  int32 GoldenHorseMutiple = 8;                         // 黃金馬的倍率，這個值大於0表示這場有黃金馬，並表示其倍率
+  int32 Maintenance = 9;                                // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}

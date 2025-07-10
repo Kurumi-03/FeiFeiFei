@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 遊戲走勢
+message GameTrendRequest {
+  string TableToken = 1;
+}
+
+message GameTrendResponse {
+  /*
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+}
+
+message GameTrendReceipt {
+  message GameTrendPlayer {
+    int32 PlayerId = 1;             // 玩家ID
+    string NickName = 2;            // 玩家暱稱
+    int32 Result = 3;               // 結果 0:輸 1:贏
+  }
+  message GameTrend {
+    int32 Round = 1;                                  // 局數(以有產生大贏家的總結果做為1局)
+    int32 Ante = 2;                                   // 底注
+    int32 BuyCardsCnt = 3;                            // 買牌數
+    double TotalWin = 4;                              // 贏牌總金額
+    map<int32,GameTrendPlayer> GameTrendPlayers = 5;  // 該局各玩家遊戲紀錄
+  }
+  repeated GameTrend GameTrends = 1;   // 各遊戲局結果(以有產生大贏家的總結果做為1局)
+}
+
+
+

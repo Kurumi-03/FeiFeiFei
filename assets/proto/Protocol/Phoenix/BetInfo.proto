@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+message BetInfo {
+  string BetId = 1;       // 注單ID
+  double BetAmount = 2;   // 下注籌碼
+  double Multiplier = 3;  // 當前倍數. CashedOut為true此值才有意義
+  double WinAmount = 4;   // 贏得籌碼. CashedOut為true此值才有意義
+  bool CashedOut = 5;     // 是否已取出
+}

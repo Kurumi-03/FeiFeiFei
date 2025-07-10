@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message IdInvitationAddClubRequest {
+  // 邀請加入俱樂部
+  int32 InvitedId = 1; // 要邀請的ID
+  string ClubId = 2; // 邀請加入的俱樂部ID
+}
+
+message IdInvitationAddClubResponse {
+  int32 State = 1; // 0:其他錯誤 1:成功發出邀請 2:無權限邀請 3:會員已加入俱樂部 4:俱樂部已滿員 5:查無資料 201:
+}
+
+message IdInvitationAddClubReceipt {
+  // 成功發出邀請時，被邀請人會收到邀請通知
+  int32 InviteId = 1;           //邀請審核列表ID
+  int32 InviteMemberId = 2;     //邀請人會員ID
+  string ClubId = 3;            //俱樂部ID
+  string ClubPhoto = 4;         //俱樂部圖片(網址)
+  string Msg = 5;               //邀請訊息
+}

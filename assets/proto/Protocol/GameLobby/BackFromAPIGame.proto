@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 玩家從外接館遊戲回到大廳時呼叫
+message BackFromAPIGameRequest {
+  string APiGameId = 1;       // 之前的外接館遊戲ID
+  string APiGameListId = 2;   // 之前的外接館遊戲代碼
+  string ClubId = 3;          // 進入外接館之前所在的俱樂部ID
+}
+
+message BackFromAPIGameResponse {
+  /*
+    [ErrorCode]
+    -1:參數錯誤
+    -2:玩家狀態錯誤
+  */
+}
+
+message BackFromAPIGameReceipt {
+  int32 St = 1;             //1:已成功回大廳 (99:參數錯誤 101:查無會員 102:查無俱樂部 103:俱樂部查無該會員 104:會員在該俱樂部被禁止遊戲 105:會員在該俱樂部帳務異常 106:查無遊戲 107:遊戲維護中 108:遊戲關閉中 109:俱樂部無該遊戲 201: 外接館轉帳回平台失敗，sMsg會帶外接館回傳的ErrorId 202: 查詢餘額失敗，sMsg會帶外接館回傳的ErrorId)
+  double GamePoint = 2;     //遊戲點數(詢問的玩家個人)
+}

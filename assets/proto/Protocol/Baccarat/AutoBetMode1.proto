@@ -1,0 +1,29 @@
+ syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+// 自動下注模式1(自動)
+message AutoBetMode1Request {
+  string TableToken = 1;  //遊戲局 token
+  int32 Start = 2;        //0:Stop 1:Start(只有1才會參考後面數值)
+  int32 BetTarget = 3;    //下注目標 0:閒 1:莊
+  double BetAmount = 4;    //下注金額
+  int32 BetRouns = 5;     //下注局數
+  int32 Profit = 6;       //停利點
+  int32 Loss = 7;         //停損點
+}
+
+message AutoBetMode1Response {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+    -4: 其他參數錯誤
+  */
+}
+
+message AutoBetMode1Receipt {
+  int32 State = 1;            // 0:停止 1:啟動
+  int32 StopReason = 2;       // 停止時會送出停止的原因(1.到達停止關數 2:達到停利 3:達到停損 6:額度不足 7:牌組已換靴，自動下注停止 8:停損停利皆設為0，只會進行1局投注)
+}

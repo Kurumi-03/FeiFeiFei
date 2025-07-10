@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message SearchPlayerIdInfoRequest {
+  // 搜尋玩家ID訊息
+  int32 SearchId = 1; // 要搜尋的ID
+}
+
+message SearchPlayerIdInfoResponse {
+  /*
+    [ErrorCode]
+    -1: 查無玩家
+    -2: 其他參數錯誤
+  */
+  int32 PlayerId = 1; // 搜尋到的ID
+  string PlayerHead = 2; // 搜尋到的頭像
+  string PlayerNickName = 3; // 搜尋到的暱稱
+}

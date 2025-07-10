@@ -1,0 +1,29 @@
+ syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+// 自動下注歷史紀錄(帳務)
+message AutoBetHistoryRequest {
+  string TableToken = 1;                      //遊戲局 token
+}
+
+message AutoBetHistoryResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+  */
+}
+
+message AutoBetHistoryReceipt {
+  message AutoBetHistory{
+    int32 AutoMode = 1;     //自動投注模式(1.自動 2.順追 3.倍投)
+    int32 Times = 2;        //今日次數
+    double TotalBet =3;     //今日下注總金額
+    double Win = 4;         //今日輸贏
+    string BetTime = 5;     //下注時間(時分秒)
+    int32 Status = 6;       //狀態(0:已停止 1:啟動中)
+  }
+  repeated AutoBetHistory HistoryList = 1;
+}

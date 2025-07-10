@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 自己的戰績
+message ClubMyselfGameRecordRequest {
+  int64 StartTime = 1;     // 開始時間
+  int64 EtartTime = 2;     // 結束時間
+  string ClubId = 3;       // 俱樂部ID
+}
+
+message ClubMyselfGameRecordResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限
+    -3: 其他參數錯誤
+  */
+}
+
+message ClubMyselfGameRecordReceipt {
+  repeated ClubMyselfGameRecord ClubMyselfGameRecords = 1;   // 戰績
+}
+
+message ClubMyselfGameRecord {
+  string RoomId = 1;          // 房號
+  int32 TotalRound = 2;       // 總局數
+  double Ante = 3;            // 底注
+  string ResultTime = 4;      // 結算時間
+  string GameName = 5;        // 遊戲名稱
+  repeated ClubMyselfGameRecordPlayer ClubMyselfGameRecordPlayers = 6;   // 該房各玩家總計遊戲紀錄
+}
+
+message ClubMyselfGameRecordPlayer {
+  int32 PlayerId = 1;             // 玩家ID
+  string NickName = 2;            // 玩家暱稱
+  double WinPt = 3;                // 輸贏
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message ReplySyncRequest {
+  string TableToken = 1;
+  int32 SyncId = 2;
+}
+
+message ReplySyncResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲不存在
+    -3: 玩家不在此遊戲
+    -4: 遊戲不需要同步或已同步完成
+    -5: SyncId無法匹配
+    -6: 玩家重複同步
+  */
+}

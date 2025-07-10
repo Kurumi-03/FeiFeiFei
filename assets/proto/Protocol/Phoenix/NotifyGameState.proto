@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+// 通知當前遊戲狀態
+message NotifyGameState {
+  int64 CurrentTime = 1;         // 遊戲當前時間(Server Time)
+  bool GameOver = 2;             // 遊戲是否結束
+  double CurrentMultiplier = 3;  // 當前倍數
+}

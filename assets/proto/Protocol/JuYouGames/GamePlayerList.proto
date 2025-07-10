@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message GamePlayerListRequest {
+  string TableToken = 1;
+}
+
+message GamePlayerListResponse {
+   /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲不存在
+    -3: 玩家不在此遊戲
+    -4: 未知的錯誤
+  */
+}
+
+message GamePlayerListReceipt {
+  message PlayerInfo{
+    int32 PlayerId = 1;   //玩家ID(前端辨識用)
+    string Head = 2;      //頭像網址，沒有設定頭像傳回字串0
+    string Nickname = 3;  //暱稱
+    double GamePoint = 4; //點數
+    int32 PlayRounds = 5; //遊玩局數
+    int32 WinRounds = 6;  //獲勝局數
+    double TotalBet = 7;  //下注額
+    double TotalWin = 8;  //輸贏總和
+  }
+  string TableToken = 1;
+  repeated PlayerInfo PlayerInfoList=2; //玩家資料列表
+}
+

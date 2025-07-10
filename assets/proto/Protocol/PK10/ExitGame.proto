@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PK10;
+
+// 離開遊戲
+message ExitGameReceipt {
+  int32 PlayerId = 1;
+  int32 Reason = 2;  // 原因. 0: 自行離開, 1: 斷線, 2: 連續三局無下注
+}

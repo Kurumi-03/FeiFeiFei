@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 設封頂金額
+message SetClubPlayerMaxMoneyRequest {
+  int32 ToId = 1;     // 要禁遊的ID
+  string ClubId = 2;     // 俱樂部ID
+  int32 MaxMoney = 3;     // 封頂金額
+}
+
+message SetClubPlayerMaxMoneyResponse {
+  int32 State = 1; // 0: 設定失敗 1: 設定成功 2: 查無資料 3: 無權限 4: 禁止修改
+  /*
+    [ErrorCode]
+    -1: 參數錯誤
+    -2: 查無資料
+  */
+}

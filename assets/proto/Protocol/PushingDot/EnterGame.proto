@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PushingDot;
+
+import "RichServer.JuYouGames/Protocol/Public/SyncPoint.proto";
+import "RichServer.PushingDot/Protocol/Public/PlayerInfo.proto";
+
+// 進入遊戲
+message EnterGameRequest {
+  string TableToken = 1;
+  string TableKey = 2;    //這個桌子的table key重新連線使用,第一次進入不用填
+  int32 PlayerId = 3;     //玩家流水號,重新連線使用,第一次進入不用填
+  string PlayerToken = 4; //登入驗證令牌,重新連線使用,第一次進入不用填
+  string Version = 5;     //版本號,重新連線使用,第一次進入不用填
+}
+
+message EnterGameResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家已在此遊戲
+    -5: 已達最大可入局人數
+  */
+}
+
+// 入桌後, 自己收到的版本. messageType == "EnterGame"
+message EnterGameReceipt {
+  int32 PlayerId = 1;                                      // 自己的玩家ID(個人資訊可在 SyncPoint 資料查詢)
+  RichServer.Protocol.JuYouGames.SyncPoint SyncPoint = 2;  // 使用 SyncPoint + xxxReceipt * N => 處理 斷線重連線 與 及時入局 的同步問題
+}
+
+// 入桌後, 他人收到的版本. messageType == "EnterGameV2"
+message EnterGameReceiptV2 {
+  PlayerInfo PlayerInfo = 1;  // 哪位玩家加入
+}

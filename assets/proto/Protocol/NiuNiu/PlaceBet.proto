@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+// 下注
+message PlaceBetRequest {
+  string TableToken = 1;
+  double BetAmount = 2;  // 下注籌碼
+}
+
+message PlaceBetResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 玩家不在座位上
+    -6: 已達下注上限
+    -7: 玩家點數不足
+    -8: 玩家在開始遊戲後加入遊戲, 故此局無法下注
+    -9: 尚未設定遊戲玩法
+  */
+}
+
+message PlaceBetReceipt {
+  int32 PlayerId = 1;   // 玩家ID
+  int32 SeatId = 2;     // 玩家座位ID
+  double BetAmount = 3;  // 下注籌碼
+}

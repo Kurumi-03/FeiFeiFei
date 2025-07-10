@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 請求玩家下注
+message AskPlayersBetState {
+  message Seat {
+    bool IsFirstRound = 1;
+    bool IsPlayerBet = 2;     //是否能下注 true: 能 false: 不能
+    bool IsPlayerNeedAgainBet = 3;
+  }
+  map<int32, Seat> Seats = 1;
+}
+
+
+// 下注階段的同步點
+message BetTimeSyncPoint {
+  message Seat {
+    bool IsFirstRound = 1;
+    bool IsPlayerBet = 2;     //是否能下注 true: 能 false: 不能
+    bool IsPlayerNeedAgainBet = 3;
+  }
+  map<int32, Seat> Seats = 1;
+}

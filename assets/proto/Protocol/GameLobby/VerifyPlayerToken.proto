@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message VerifyPlayerTokenRequest {
+  string PlayerToken = 1;     //登入驗證令牌
+  string Version = 2;     //版本號
+}
+
+message VerifyPlayerTokenResponse {
+  int32 State = 1;          //1:成功 2:重複登入 3:版本不符 4:重新入局 其他:失敗 成功後直接進到大廳，不成功需登入 5:目前是維護時間 6:玩家帳號被其他裝置使用,目前遊戲中
+  string PlayerToken = 2;   //新的登入驗證令牌，state = 1 才會有值
+  int32 PlayerId = 3;       //流水號
+}

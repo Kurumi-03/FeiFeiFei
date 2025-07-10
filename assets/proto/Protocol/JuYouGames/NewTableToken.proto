@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+
+
+message NewTableTokenReceipt {
+  string roomtoken=1;   //server自動幫忙重開新遊戲房間的token
+}
+
+
+
+

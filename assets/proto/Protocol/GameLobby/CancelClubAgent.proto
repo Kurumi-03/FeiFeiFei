@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 設為會員
+message CancelClubAgentRequest {
+  int32 ToMemberId = 1;     // 要轉會員的ID
+  string ClubId = 2;     // 俱樂部ID
+}
+
+message CancelClubAgentResponse {
+  int32 State = 1; // 1: 成功取消代理
+  /*
+    [ErrorCode]
+    -1: 參數錯誤
+    -2: 查無資料
+    -3: 未加入俱樂部
+    -4: 無權限
+    -5: 已為會員
+    -6: 不屬於此代理線
+    -7: 有下線成員,不可變更為會員
+  */
+}
+
+message ChangeClubMemberUserAgentReceipt {
+  string ClubId = 1;      //俱樂部ID
+  int32 UserAgent = 2;     //俱樂部身分 0:會員 1:代理 2:總代
+}

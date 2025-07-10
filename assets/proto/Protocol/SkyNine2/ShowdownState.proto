@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine2;
+
+import "RichServer.SkyNine2/Protocol/Public/TableInfo.proto";
+import "RichServer.SkyNine2/Protocol/Public/PlayerInfo.proto";
+import "RichServer.SkyNine2/Protocol/Public/HandInfo.proto";
+import "RichServer.SkyNine2/Protocol/Public/RoundOutcomeInfo.proto";
+
+// 開始比牌
+message ShowdownState {
+  message HandArea {
+    int32 Id = 1;            // 0: 莊家, 1: 初, 2: 川, 3: 尾
+    HandInfo Hand = 2;       // 手牌資訊
+    int32 Outcome = 3;       // 0: 和, 1: 勝, -1: 負
+                             // 當 Id == 0, 固定為 0
+                             // 當 Id != 0, 閒家對莊家的輸贏
+    int32 FrontOutcome = 4;  // 前墩(閒家對莊家的輸贏), 0: 和, 1: 勝, -1: 負
+    int32 BackOutcome = 5;   // 後墩(閒家對莊家的輸贏), 0: 和, 1: 勝, -1: 負
+  }
+
+  repeated HandArea HandAreas = 1;    // 各區開牌資訊
+  RoundOutcomeInfo RoundOutcome = 2;  // 輸贏結果
+  int32 Maintenance = 3;              // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}
+
+// 比牌階段的同步點
+message ShowdownSyncPoint {
+  message TableExInfo {
+    int32 RemainingCardCount = 1;  // 桌面上剩餘的牌數量(已發完牌)
+    repeated int32 Dices = 2;      // 三顆骰子
+    int32 FirstBase = 3;           // 從哪個位置開始發牌. 0: 莊家, 1: 初, 2: 川, 3: 尾
+  }
+
+  message TableBetInfo {
+    message BettingArea {
+      int32 Id = 1;         // 參考 PlaceBet.proto
+      double TotalBet = 2;  // 該區總下注籌碼
+      double BetLimit = 3;  // 該區目前限紅
+      // repeated double AllBets = 2;  // 下注籌碼清單
+      // double TotalBet = 3;          // 該區總下注籌碼
+    }
+
+    message HandArea {
+      int32 Id = 1;            // 0: 莊家, 1: 初, 2: 川, 3: 尾
+      HandInfo Hand = 2;       // 手牌資訊
+      int32 Outcome = 3;       // 0: 和, 1: 勝, -1: 負
+                               // 當 Id == 0, Outcome 無意義
+                               // 當 Id != 0, Outcome 表示閒家對莊家的輸贏
+      int32 FrontOutcome = 4;  // 前墩(閒家對莊家的輸贏), 0: 和, 1: 勝, -1: 負
+      int32 BackOutcome = 5;   // 後墩(閒家對莊家的輸贏), 0: 和, 1: 勝, -1: 負
+    }
+
+    repeated BettingArea BettingAreas = 1;  // 各區下注資訊
+    repeated HandArea HandAreas = 2;        // 各區開牌資訊
+  }
+
+  message PlayerBetInfo {
+    message BettingArea {
+      int32 Id = 1;                 // 參考 PlaceBet.proto
+      repeated double AllBets = 2;  // 下注籌碼清單
+      double TotalBet = 3;          // 該區總下注籌碼
+      // double Bet = 2;  // 該區下注籌碼
+    }
+
+    int32 Id = 1;                           // 玩家ID
+    repeated BettingArea BettingAreas = 2;  // 各區下注資訊
+    double TotalBet = 3;                    // 總下注籌碼(所有下注區)
+  }
+
+  TableInfo Table = 1;                    // 遊戲桌資訊
+  TableExInfo TableEx = 2;                // 遊戲桌額外資訊
+  TableBetInfo TableBet = 3;              // 遊戲桌下注資訊
+  repeated PlayerInfo Players = 4;        // 所有玩家資訊
+  repeated PlayerBetInfo PlayersBet = 5;  // 所有玩家下注資訊
+  RoundOutcomeInfo RoundOutcome = 6;      // 輸贏結果
+  int32 Maintenance = 7;                  // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}

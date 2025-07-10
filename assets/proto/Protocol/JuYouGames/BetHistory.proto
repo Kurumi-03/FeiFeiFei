@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message BetHistoryRequest {
+  string GameName = 1;
+}
+
+message BetHistoryResponse {
+  repeated string History_Data = 1;      //下注的歷史紀錄，最多50筆(取最後50筆)
+}
+
+
+
+

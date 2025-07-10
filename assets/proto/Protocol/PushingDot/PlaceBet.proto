@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PushingDot;
+
+// 下注
+message PlaceBetRequest {
+  string TableToken = 1;
+  int32 AreaId = 2;       // 下注哪一區. 1: 初, 2: 川, 3: 尾
+  double BetAmount = 3;    // 下注籌碼
+}
+
+message PlaceBetResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 該區已達下注上限
+    -6: 玩家點數不足(下注籌碼 * 最高倍數3)
+  */
+}
+
+message PlaceBetReceipt {
+  int32 PlayerId = 1;   // 玩家ID
+  int32 AreaId = 2;     // 下注哪一區. 1: 初, 2: 川, 3: 尾
+  double BetAmount = 3;  // 下注籌碼
+}

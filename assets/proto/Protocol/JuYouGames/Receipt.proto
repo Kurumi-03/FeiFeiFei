@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message ReceiptMessage {
+  string MessageType = 1;    // "gameName.xxx"
+  bytes MessageContent = 2;  // xxxReceipt
+}

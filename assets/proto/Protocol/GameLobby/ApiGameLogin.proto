@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 要外連到哪個遊戲
+message ApiGameLoginRequest {
+  string APiGameId = 1;       // 外接館遊戲ID
+  string APiGameListId = 2;   // 外接館遊戲代碼
+}
+
+message ApiGameLoginResponse {
+  /*
+    [ErrorCode]
+    -1:參數錯誤
+    -2:不在該俱樂部內
+    -3:該玩家在遊戲中
+  */
+}
+
+message ApiGameLoginReceipt {
+  string APiGameId = 1;       // 外接館遊戲ID
+  string APiGameListId = 2;   // 外接館遊戲代碼
+  int32 State = 3;            //0:成功 99:參數錯誤 106:查無遊戲 107:遊戲維護中 108:遊戲關閉中 109:俱樂部無該遊戲 200:登入外接館失敗
+  string Url  = 4;            //外接館遊戲網址(State =0 才會有值)
+}

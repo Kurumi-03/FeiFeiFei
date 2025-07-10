@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine2;
+
+// 走勢圖
+message GetTrendChartRequest {
+  string TableToken = 1;
+}
+
+message GetTrendChartResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+
+  message RoundOutcome {
+    message HandArea {
+      int32 Id = 1;         // 0: 莊家, 1: 初, 2: 川, 3: 尾
+      string HandType = 2;  // 前墩/後墩牌型
+      int32 Outcome = 3;    // 0: 和, 1: 勝, -1: 負
+                            // 當 Id == 0, 莊家對閒家的輸贏(如果莊家對閒家是2勝1負, 則紀錄為莊家勝)
+                            // 當 Id != 0, 閒家對莊家的輸贏
+    }
+
+    int32 RoundId = 1;                // 第幾局
+    repeated HandArea HandAreas = 2;  // 各座位開牌資訊. 沒在列表的座位ID表示無人
+  }
+
+  message Record {
+    int32 Id = 1;      // 0: 莊家, 1: 初, 2: 川, 3: 尾
+    int32 Wins = 2;    // 幾勝
+    int32 Losses = 3;  // 幾負
+    int32 Ties = 4;    // 幾和
+  }
+
+  repeated RoundOutcome RoundsOutcome = 1;  // 各局歷史紀錄
+  repeated Record Records = 2;              // 各區戰績
+  repeated int32 DealtCards = 3;            // 一副牌當中已經發過的牌(依照取牌次序紀錄)
+}

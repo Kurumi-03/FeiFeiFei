@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 自己的戰績(修改可以查詢下線)
+message ClubMyselfGameRecordV2Request {
+  int64 StartTime = 1;     // 開始時間
+  int64 EtartTime = 2;     // 結束時間
+  string ClubId = 3;       // 俱樂部ID
+  int32 MemberId = 4;      // 要查詢的memberID,填0為查詢自己
+  int32 GameId = 5;        // 0表示取得所有遊戲。九支刀200001,百家樂200002,推筒子200003,妞妞200004,黑粒仔200005,彈珠擂台200006...
+  int32 StartIdx = 6;      // 開始筆數(最新的筆數從0開始)
+  int32 Count = 7;         // 需要的筆數(時間內筆數不足時，以時間內的資料為主，超過時間的不會送。而時間內的筆數超過要求筆數時，會送出請求的筆數)
+}
+
+message ClubMyselfGameRecordV2Response {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限或不在該俱樂部內
+    -3: 其他參數錯誤
+    -4: 沒有查詢該帳號的權限
+  */
+}
+
+message ClubMyselfGameRecordV2Receipt {
+  int32 StartIdx = 1;       // 開始筆數(回傳-1表示已經沒有資料)
+  repeated ClubMyselfGameRecordV2 ClubMyselfGameRecords = 2;   // 玩家個人戰績
+}
+
+message ClubMyselfGameRecordV2 {
+  int32 GameId = 1;           // 遊戲id
+  int32 RoomId = 2;           // 房號
+  int32 Rounds = 3;           // 局號
+  double WinPt = 4;           // 輸贏
+  double Ante = 5;            // 底注
+  string ResultTime = 6;      // 結算時間
+  repeated ClubMyselfGameRecordV2Player ClubMyselfGameRecordPlayers = 7;   // 該房各玩家總計遊戲紀錄(對戰遊戲才有)
+}
+
+message ClubMyselfGameRecordV2Player {
+  int32 MemberId = 1;             // 玩家memberID
+  string NickName = 2;            // 玩家暱稱
+  double BetPt = 3;               // 下注點數
+  double WinPt = 4;               // 輸贏
+  int32 BetArea = 5;              // 下注區
+  double RoomCardCnts = 6;        // 房卡張數
+  string Detail = 7;              // 詳細資訊(牌型...等)
+}

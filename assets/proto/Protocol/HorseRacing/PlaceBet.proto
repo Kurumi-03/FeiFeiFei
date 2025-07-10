@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package RichServer.Protocol.HorseRacing;
+
+import "RichServer.HorseRacing/Protocol/Public/BetInfo.proto";
+
+// 下注
+message PlaceBetRequest {
+  string TableToken = 1;
+  repeated BetInfo BetInfo = 2;  // 下注資訊
+}
+
+message PlaceBetResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 牌桌已達下注上限
+    -6: 玩家點數不足
+    -7: 個人已達下注上限
+  */
+  int32 ErrorCode = 1;            // 錯誤碼
+}
+
+message PlaceBetReceipt {
+  int32 PlayerId = 1;   // 玩家ID
+  repeated BetInfo BetInfo = 2;  // 下注資訊
+
+}

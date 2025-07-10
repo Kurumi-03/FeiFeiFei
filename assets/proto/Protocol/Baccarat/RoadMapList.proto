@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+message RoadMapList {
+  repeated int32 Ball = 1;
+}

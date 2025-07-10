@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message GetUsedChipsRequest {
+  int32 GameId = 1;           //遊戲ID(200001:九支刀, 200002:百家樂, 200003:推筒子, 200004:妞妞, 200005:黑粒仔, 200006:彈珠擂台, 200007:推筒子百人版, 200008:妞妞百人版, 200009:黑粒仔百人版)
+}
+
+message GetUsedChipsResponse {
+   /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲不存在
+    -3: 玩家不在此遊戲
+    -4: 未知的錯誤
+  */
+}
+
+message GetUsedChipsReceipt {
+  int32 GameId = 1;           //遊戲ID(200001:九支刀, 200002:百家樂, 200003:推筒子, 200004:妞妞, 200005:黑粒仔, 200006:彈珠擂台, 200007:推筒子百人版, 200008:妞妞百人版, 200009:黑粒仔百人版)
+  repeated int32 ChipsList=2; //要記錄的常用籌碼陣列
+}
+

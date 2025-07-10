@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.PK10;
+
+// 走勢圖
+message GetTrendChartRequest {
+  string TableToken = 1;
+}
+
+message GetTrendChartResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+  message Recode{
+    string GameSerial  = 1;       //該期期號
+    repeated int32 FinalCars= 2;  //該期結果
+  }
+  repeated Recode Records = 1;    //歷史紀錄(預設傳20筆)
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine2;
+
+/*
+{Card欄位解析}
+  Type => Card & 0x000000ff;
+  Value => (Card & 0x0000ff00) >> 8;
+  Order => (Card & 0x00ff0000) >> 16;
+
+{文牌}
+  [Type]
+    1: 天,  2: 地,  3: 人,  4: 牙,  5: 板,  6: 板,  7: 板,  8: 草,  9: 草, 10: 草, 11: 草
+  [Value]
+   12: 天,  2: 地,  8: 人,  4: 牙, 10: 板,  6: 板,  4: 板, 11: 草, 10: 草,  7: 草,  6: 草
+  [Order]
+    7: 天,  6: 地,  5: 人,  4: 牙,  3: 板,  3: 板,  3: 板,  2: 草,  2: 草,  2: 草,  2: 草
+
+{武牌}
+  [Type]
+  12: 九, 13: 九, 14: 八, 15: 八, 16: 七, 17: 七, 18: 六, 19: 五, 20: 五, 21: 三
+  [Value]
+   9: 九,  9: 九,  8: 八,  8: 八,  7: 七,  7: 七,  6: 六,  5: 五,  5: 五,  3: 三
+  [Order]
+   1: 九,  1: 九,  1: 八,  1: 八,  1: 七,  1: 七,  1: 六,  1: 五,  1: 五,  1: 三
+*/
+
+message HandInfo {
+  message Hand {
+    string Type = 1;                 // 牌型
+    repeated int32 Cards = 2;        // 未排序的二張牌
+    repeated int32 SortedCards = 3;  // 排序的二張牌
+  }
+
+  Hand FrontHand = 1;  // 前墩
+  Hand BackHand = 2;   // 後墩
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 玩牌紀錄
+message ClubDownlinePlayRecordRequest {
+  int64 StartTime = 1;     // 開始時間
+  int64 EtartTime = 2;     // 結束時間
+  string ClubId = 3;       // 俱樂部ID
+  int32 MemberId = 4;     // 要查詢的member id
+  int32 StartIdx = 5;      // 開始筆數(最新的筆數從0開始)
+  int32 Count = 6;         // 需要的筆數(時間內筆數不足時，以時間內的資料為主，超過時間的不會送。而時間內的筆數超過要求筆數時，會送出請求的筆數)
+}
+
+message ClubDownlinePlayRecordResponse {
+  /*
+    [ErrorCode]
+    -1: 查無俱樂部
+    -2: 無該俱樂部權限或不在該俱樂部內
+    -3: 其他參數錯誤
+  */
+}
+
+message ClubDownlinePlayRecordReceipt {
+  message ClubMyselfPlayRecord {
+    string DateTime = 1;        // 日期時間
+    int32 GameId = 2;           // 遊戲id
+    int32 BetArea = 3;          // 下注詳情(下注區)
+    double WinPt = 4;           // 輸贏
+    double GPointLeft = 5;      // 剩餘點數
+  }
+  int32 StartIdx = 1;       // 開始筆數(回傳-1表示已經沒有資料)
+  repeated ClubMyselfPlayRecord ClubMyselfPlayRecords = 2;   // 玩家玩牌紀錄
+}
+
+
+

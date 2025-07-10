@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu2;
+
+import "RichServer.NiuNiu2/Protocol/Public/TableInfo.proto";
+import "RichServer.NiuNiu2/Protocol/Public/PlayerInfo.proto";
+
+// 開始發牌
+message DealingState {
+  repeated int32 Dices = 1;  // 原本是骰子, 但改用撲克牌代替, 所以數字是1~13
+  int32 FirstBase = 2;       // 從哪個位置開始發牌. 0: 莊家, 1: 閒1, 2: 閒2, 3: 閒3
+}
+
+// 發牌階段的同步點
+message DealingSyncPoint {
+  message TableExInfo {
+    repeated int32 Dices = 1;  // 原本是骰子, 但改用撲克牌代替, 所以數字是1~13
+    int32 FirstBase = 2;       // 從哪個位置開始發牌. 0: 莊家, 1: 閒1, 2: 閒2, 3: 閒3
+  }
+
+  TableInfo Table = 1;              // 遊戲桌資訊
+  TableExInfo TableEx = 2;          // 遊戲桌額外資訊
+  repeated PlayerInfo Players = 3;  // 所有玩家資訊
+}

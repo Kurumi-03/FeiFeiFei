@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+// 下線目前各遊戲禁止狀態
+message ClubDownLineBanGamesRequest {
+  int32 SearchId = 1;  // 要查詢的下線ID
+  string ClubId = 2;   // 俱樂部ID
+}
+
+message ClubDownLineBanGamesResponse {
+  /*
+    [ErrorCode]
+    -1: 傳入資料有誤
+    -2: 查無資料
+    -3: API 查無資料
+    -4: 未加入俱樂部
+    -5: 無權限
+    -6: 非下線會員
+  */
+}
+
+message ClubDownLineBanGamesReceipt {
+  message ClubDownLineGame {
+    string GameId = 1;      // 遊戲ID
+    string GameName = 2;    // 遊戲名稱
+    bool Ban = 3;           // 是否禁止 false:開放 true:禁止
+  }
+  int32 SearchId = 1;     // 要查詢的下線ID
+  string ClubId = 2;      // 俱樂部ID
+  repeated ClubDownLineGame ClubDownLineBanGames = 3;   // 下線目前各遊戲禁止資料
+}
+

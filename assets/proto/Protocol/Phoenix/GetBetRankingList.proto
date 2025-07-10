@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+// 取得當局玩家下注排名
+message GetBetRankingListRequest {
+  string TableToken = 1;  // 遊戲桌token
+}
+
+message GetBetRankingListResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+  */
+
+  message Player {
+    int32 Id = 1;               // 玩家ID
+    double TotalBetAmount = 2;  // 總下注籌碼
+  }
+
+  repeated Player List = 1;
+}

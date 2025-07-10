@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package RichServer.Protocol.SkyNine;
+
+import "RichServer.SkyNine/Protocol/Public/Card.proto";
+
+message HandInfo {
+  message Hand {
+    int32 Type = 1;   // 牌型. 0: 散牌, 1: 對子, 2: 至尊, 3: 天九皇, 4: 天冠, 5: 地冠
+    string Name = 2;  // 牌型名稱
+    Card Card1 = 3;   // 第一張牌
+    Card Card2 = 4;   // 第二張牌
+    int32 Total = 5;  // 點數總計
+    // 當 Type == 0, Total: 表示牌型點數. 參考Value欄位, 但點數相同需參考Order欄位
+    // 當 Type == 1, Total: 表示牌型大小. 參考Order欄位
+    // 當 Type == (2|3|4|5), Total: 為特殊牌型. 點數加總沒意義, 故此值為0
+  }
+
+  Hand Front = 1;  // 前墩
+  Hand Back = 2;   // 後墩
+}

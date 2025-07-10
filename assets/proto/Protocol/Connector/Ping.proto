@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Connector;
+
+message PingMessage {
+  int32 Key = 1;  // 從 PongMessage 取得的 Key
+}
+
+message PongMessage {
+  int32 Key = 1;      // 每次要求 PingMessage 需要攜帶的 Key
+  int32 Seconds = 2;  // 幾秒後回覆 PingMessage
+}

@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package RichServer.Protocol.JuYouGames;
+
+message StartNewRoundMessage {
+  string TableToken = 1;
+  int32 RoundId = 2;
+}

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Baccarat;
+
+// 結算畫面的同步點
+message GameBalanceState {
+  message AreaCredit {
+    int32 Id = 1;                    // (0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+    repeated double AllCredits = 2;  // 下注籌碼清單
+  }
+  message SeatInfo {
+    double GPoint = 1;                    // 每個座位的遊戲點(輸贏統計過後)
+    double BetPt = 2;                     // 每個座位的總押注點數
+    double WinPt = 3;                     // 每個座位的輸贏點
+    double CreditBackB = 4;               // 玩家若是押莊,卻開出和,要退回給玩家的籌碼
+    double CreditBackP = 5;               // 玩家若是押閒,卻開出和,要退回給玩家的籌碼
+    repeated double EachAreaWinPt = 6;    // 此座位每個區域的贏點(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+    repeated AreaCredit AreaCredits = 7;    // 此位置各下注區的籌碼清單
+  }
+
+  map<int32, SeatInfo> Seats = 1;     // 每個座位的資料
+  int32 PlayerCardPoint = 2;          // 閒家牌點數
+  int32 BankerCardPoint = 3;          // 莊家牌點數
+  int32 WinType = 4;                  // 開牌結果 0:閒 1:莊 2:和
+  repeated int32 PairType = 5;        // 欄位0:閒家有無對子 欄位1:莊家有無對子
+  int32 Maintenance = 6;              // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}
+
+message GameBalanceSyncPoint {
+  message AreaCredit {
+    int32 Id = 1;                    // (0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+    repeated double AllCredits = 2;  // 下注籌碼清單
+  }
+  message SeatInfo {
+    double GPoint = 1;                      // 此座位的遊戲點(輸贏統計過後)
+    double BetPt = 2;                       // 此座位的總押注點數
+    double WinPt = 3;                       // 此座位的輸贏點
+    double CreditBackB = 4;                 // 玩家若是押莊,卻開出和,要退回給玩家的籌碼
+    double CreditBackP = 5;                 // 玩家若是押閒,卻開出和,要退回給玩家的籌碼
+    repeated double EachAreaWinPt = 6;      // 此座位每個區域的贏點(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+    repeated AreaCredit AreaCredits = 7;    // 此位置各下注區的籌碼清單
+    bool IsAuto = 8;                        // 是否為自動下注
+  }
+
+  map<int32, SeatInfo> Seats = 1;       // 每個座位的資料 
+  repeated int32 PlayerCardList = 2;    // 閒家手牌
+  int32 PlayerCardPoint = 3;            // 閒家牌點數
+  repeated int32 BankerCardList = 4;    // 莊家手牌
+  int32 BankerCardPoint = 5;            // 莊家牌點數
+  int32 WinType = 6;                    // 開牌結果 0:閒 1:莊 2:和
+  repeated int32 PairType = 7;          // 欄位0:閒家有無對子 欄位1:閒家有無對子
+  repeated double EachAreaBet = 8;      // 每個區域的押注值(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+  repeated double EachAreaSelfBet = 9;  // 玩家自己在每個區域的押注值(0:閒家 1：莊家 2：和 3：閒對 4：莊對)
+  int32 Maintenance = 10;               // 局結束後是否進行維護(0:無維護 1:即將維護 2:餘額已達封頂值 3:玩家已經被禁止遊戲)
+}

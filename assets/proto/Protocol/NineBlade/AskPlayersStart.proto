@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+message PlayersStartRequest {
+    string TableToken = 1;
+    bool IsPlayerStart = 2;     //是否開始 true: 開始 false: 還沒
+}
+
+message PlayersStartResponse {
+
+}
+
+message PlayersStartReceipt {
+    bool Start = 1;
+    bool IsFirstRound = 2;
+}

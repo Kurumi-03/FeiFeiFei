@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 買牌請求
+message BuyRequest {
+  string TableToken = 1;
+  int32 SeatId = 2; // 買牌的座位ID
+  int32 IsBuy = 3; // 是否買牌 0:放棄 1:買牌
+}
+
+// 買牌
+message BuyResponse {
+}
+
+// 買牌通知
+message BuyReceipt {
+  int32 SeatId = 1;     // 1 ~ MaxSeats
+  double BetAmount = 2;  // 買牌金額
+  double GamePoint = 3;  // 買牌完餘額
+  double AllBet = 4; //目前總注
+}

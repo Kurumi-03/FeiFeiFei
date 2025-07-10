@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package RichServer.Protocol.GameLobby;
+
+message DeleteUserRequest {
+}
+
+message DeleteUserResponse {
+  /*
+    [ErrorCode]
+    -1: 查無玩家
+    -2: 其他參數錯誤
+  */
+}
+
+message DeleteUserReceipt {
+  int32 ErrorCode = 1;         // 0表示成功，其餘為失敗
+}

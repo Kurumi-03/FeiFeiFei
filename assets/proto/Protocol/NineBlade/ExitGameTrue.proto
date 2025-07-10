@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NineBlade;
+
+// 離開遊戲
+message ExitGameTrueRequest {
+  string TableToken = 1;
+}
+
+message ExitGameTrueResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲TableToken不存在
+    -3: 玩家SessionId不存在
+    -4: 玩家不在此遊戲
+  */
+}
+
+message ExitGameTrueReceipt {
+  int32 PlayerId = 1; // 離開的玩家
+  int32 SeatCount = 2; // 目前座位上總人數
+}

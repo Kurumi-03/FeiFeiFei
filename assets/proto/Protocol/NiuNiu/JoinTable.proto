@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+// 加入桌(座位)
+message JoinTableRequest {
+  string TableToken = 1;
+  int32 SeatId = 2;  // 座位ID
+}
+
+message JoinTableResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 玩家已在座位上
+    -6: 此座位已有其他玩家
+  */
+}
+
+message JoinTableReceipt {
+  int32 PlayerId = 1;  // 玩家ID
+  int32 SeatId = 2;    // 座位ID
+}

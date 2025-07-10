@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package RichServer.Protocol.Phoenix;
+
+import "RichServer.Phoenix/Protocol/Public/TableInfo.proto";
+import "RichServer.Phoenix/Protocol/Public/PlayerInfo.proto";
+import "RichServer.Phoenix/Protocol/Public/BetInfo.proto";
+
+// 開始進行遊戲
+message ShowdownState {
+  // *** 當前倍數 = 起始倍數 + 目前飛行時間*倍數因子 ***
+  int64 StartTime = 1;  // 遊戲開始的時間(Server Time). 後端會以固定的時間通知前端CurrentTime(Server Time). 但考量前端畫面必須即時顯示倍數更新, 前端可自行先模擬時間
+  double Initial = 2;   // 起始倍數
+  double Factor = 3;    // 倍數因子. 當前倍數 = Initial + (CurrentTime - StartTime) * Factor
+}
+
+// 遊戲進行階段的同步點
+message ShowdownSyncPoint {
+  message PlayerBetInfo {
+    int32 Id = 1;                  // 玩家ID
+    repeated BetInfo BetList = 2;  // 下注資訊列表
+  }
+
+  TableInfo Table = 1;                    // 遊戲桌資訊
+  repeated PlayerInfo Players = 2;        // 所有玩家資訊
+  repeated PlayerBetInfo PlayersBet = 3;  // 所有玩家下注資訊
+  int64 StartTime = 4;                    // 同上解釋
+  double Initial = 5;                     // 同上解釋
+  double Factor = 6;                      // 同上解釋
+  int64 CurrentTime = 7;                  // 遊戲當前時間(Server Time)
+  bool GameOver = 8;                      // 遊戲是否結束
+  double AutoCashOut = 9;                 // 玩家個人SetAutoCashOut的倍數
+}

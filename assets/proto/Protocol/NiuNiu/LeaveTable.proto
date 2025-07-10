@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package RichServer.Protocol.NiuNiu;
+
+// 離開桌(座位)
+message LeaveTableRequest {
+  string TableToken = 1;
+}
+
+message LeaveTableResponse {
+  /*
+    [ErrorCode]
+    -1: 請求參數無效
+    -2: 遊戲 TableToken 不存在
+    -3: 玩家 SessionId 不存在
+    -4: 玩家不在此遊戲
+    -5: 玩家不在座位上
+    -6: 只有在牌局開始期間(尚未決定倍數玩法)可離開座位
+  */
+}
+
+message LeaveTableReceipt {
+  int32 PlayerId = 1;  // 玩家ID
+  int32 SeatId = 2;    // 座位ID
+}
